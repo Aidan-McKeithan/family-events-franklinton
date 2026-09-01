@@ -7,8 +7,9 @@ Cloudflare credentials.
 
 The transaction upserts events and source health, then updates
 `catalog_metadata` as its final catalog operation. Validation happens before
-the transaction is emitted. Existing event rows are not deleted, so a failed
-or partial source refresh preserves last-known-good records. A future Worker
+the transaction is emitted. Failed or partial source refreshes preserve
+last-known-good records; successful sources reconcile their owned events and
+attributions, including tombstoning records removed from the source. A future Worker
 or scheduled job can execute this SQL only after authentication and complete
 batch validation.
 

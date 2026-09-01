@@ -44,7 +44,7 @@ def source_rows(payload, registry):
             status = "stale" if failure.get("usingLastKnownGood") else "unavailable"
         if status not in {"fresh", "stale", "unavailable"}:
             raise ValueError(f"invalid source status: {status}")
-        current = dict(current, status=status)
+        current = dict(current, status=status, message=(failure.get("message") if failure else current.get("message")), usingLastKnownGood=(bool(failure.get("usingLastKnownGood")) if failure else status == "stale"))
         rows.append((configured, current))
     configured_sources = registry["sources"] if isinstance(registry, dict) else registry
     unknown = set(by_name) - {item["sourceName"] for item in configured_sources}
@@ -82,7 +82,7 @@ def build_publish_sql(payload, registry=None, published_at=None, current_generat
             else:
                 statements.append(f"DELETE FROM events WHERE source_name={sql_string(configured['sourceName'])};")
     for configured, current in rows:
-        values = [sql_string(configured["sourceId"]), sql_string(configured["sourceName"]), sql_string(configured["sourceUrl"]), sql_string(current["status"]), sql_string(current.get("lastSuccessfulRefresh")), sql_string(current.get("lastAttemptAt") or published_at), sql_string(current.get("lastSuccessfulRefresh")), "1" if current.get("status") == "stale" else "0", sql_string(current.get("message")), sql_string(published_at)]
+        values = [sql_string(configured["sourceId"]), sql_string(configured["sourceName"]), sql_string(configured["sourceUrl"]), sql_string(current["status"]), sql_string(current.get("lastSuccessfulRefresh")), sql_string(current.get("lastAttemptAt") or published_at), sql_string(current.get("lastSuccessfulRefresh")), "1" if current.get("usingLastKnownGood") else "0", sql_string(current.get("message")), sql_string(published_at)]
         statements.append("INSERT INTO sources (id,source_name,source_url,status,last_successful_refresh,last_attempt,last_success,using_last_known_good,last_error,updated_at) VALUES (" + ",".join(values) + ") ON CONFLICT(id) DO UPDATE SET source_name=excluded.source_name,source_url=excluded.source_url,status=excluded.status,last_successful_refresh=excluded.last_successful_refresh,last_attempt=excluded.last_attempt,last_success=excluded.last_success,using_last_known_good=excluded.using_last_known_good,last_error=excluded.last_error,updated_at=excluded.updated_at;")
     origin = payload.get("origin", {})
     statements.append("INSERT INTO catalog_metadata (id,generated_at,origin_label,origin_latitude,origin_longitude,updated_at) VALUES (1," + ",".join([sql_string(published_at), sql_string(origin.get("label", "Franklinton, NC 27525")), sql_number(origin.get("latitude", 36.101)), sql_number(origin.get("longitude", -78.458)), sql_string(published_at)]) + ") ON CONFLICT(id) DO UPDATE SET generated_at=excluded.generated_at,origin_label=excluded.origin_label,origin_latitude=excluded.origin_latitude,origin_longitude=excluded.origin_longitude,updated_at=excluded.updated_at WHERE excluded.generated_at >= catalog_metadata.generated_at;")

@@ -43,10 +43,11 @@ class PublisherTests(unittest.TestCase):
     def test_top_level_failure_controls_source_lkg_status(self):
         payload = json.loads(json.dumps(self.payload))
         payload["sources"][1]["status"] = "fresh"
-        payload["sourceFailures"] = [{"sourceName": "Franklin County Kids & Teens", "usingLastKnownGood": True}]
+        payload["sourceFailures"] = [{"sourceName": "Franklin County Kids & Teens", "usingLastKnownGood": True, "message": "refresh failed"}]
         sql = build_publish_sql(payload, self.registry)
         self.assertIn("'stale'", sql)
         self.assertIn(",1,", sql)
+        self.assertIn("refresh failed", sql)
 
     def test_sql_runs_on_fresh_schema_and_replay_is_idempotent(self):
         connection = sqlite3.connect(":memory:")

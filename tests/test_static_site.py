@@ -49,6 +49,13 @@ class StaticSiteTests(unittest.TestCase):
         self.assertIn("source.lastSuccessfulRefresh", self.js)
         self.assertIn("controlsBound", self.js)
 
+    def test_startup_has_single_defined_initializer_and_api_asset(self):
+        self.assertEqual(self.js.count("async function init()"), 1)
+        self.assertIn("init();", self.js)
+        self.assertIn('src="api.js"', self.html)
+        workflow = (ROOT / ".github" / "workflows" / "verify.yml").read_text(encoding="utf-8")
+        self.assertIn("api.js", workflow)
+
 
 if __name__ == "__main__":
     unittest.main()
