@@ -1,4 +1,5 @@
 const ORIGIN = { lat: 36.101, lon: -78.458 };
+const API_BASE = typeof window.EVENTS_API_BASE === "string" ? window.EVENTS_API_BASE.replace(/\/$/, "") : "https://little-day-out-api.agent-practice.workers.dev";
 const { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange, applyQuickDate } = LittleDayOutLogic;
 const { loadCatalog } = LittleDayOutApi;
 let state = { date: "today", startDate: "", endDate: "", age: 2.5, anyAge: false, includeUnknownAge: true, distance: 20, anyDistance: false, cost: "all", setting: "all", registration: "all", includeUnknownFacts: false, category: "all", savedOnly: false };
@@ -148,7 +149,7 @@ async function legacyInitUnused() {
   setDateLabels();
   if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
-    const apiBase = typeof window.EVENTS_API_BASE === "string" ? window.EVENTS_API_BASE.replace(/\/$/, "") : "";
+    const apiBase = API_BASE;
     const catalog = await loadCatalog({ apiBase, staticUrl: "public/data/events.json" });
     const { data, usingFallback } = catalog;
     events = data.events;
@@ -170,7 +171,7 @@ async function init() {
   setDateLabels();
   if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
-    const apiBase = typeof window.EVENTS_API_BASE === "string" ? window.EVENTS_API_BASE.replace(/\/$/, "") : "";
+    const apiBase = API_BASE;
     const catalog = await loadCatalog({ apiBase, staticUrl: "public/data/events.json" });
     const { data } = catalog;
     events = data.events;

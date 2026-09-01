@@ -11,8 +11,13 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from scripts.validate_events import validate
-from scripts.ingest.source_manifest import load_manifest
+try:
+    from scripts.validate_events import validate
+    from scripts.ingest.source_manifest import load_manifest
+except ModuleNotFoundError:  # Support direct execution from the repository root.
+    sys.path.insert(0, str(Path(__file__).parents[2]))
+    from scripts.validate_events import validate
+    from scripts.ingest.source_manifest import load_manifest
 
 ROOT = Path(__file__).parents[2]
 REGISTRY = ROOT / "scripts" / "ingest" / "source_manifest.json"
@@ -61,11 +66,9 @@ def build_publish_sql(payload, registry=None, published_at=None, current_generat
     published_at = published_at or payload["generatedAt"]
     if current_generated_at and datetime.fromisoformat(published_at.replace("Z", "+00:00")) < datetime.fromisoformat(current_generated_at.replace("Z", "+00:00")):
         raise ValueError("refusing to publish an older catalog snapshot")
-    statements = ["BEGIN TRANSACTION;",
-        "CREATE TEMP TABLE IF NOT EXISTS __catalog_snapshot_guard (value TEXT PRIMARY KEY);",
-        "DELETE FROM __catalog_snapshot_guard;",
-        "INSERT INTO __catalog_snapshot_guard VALUES ('older');",
-        "INSERT INTO __catalog_snapshot_guard SELECT 'older' WHERE EXISTS (SELECT 1 FROM catalog_metadata WHERE id=1 AND generated_at > " + sql_string(published_at) + ");"]
+    # D1 imports reject explicit transactions and TEMP tables. The Worker
+    # batch executor performs the snapshot guard before DB.batch().
+    statements = []
     for event in sorted(payload["events"], key=lambda item: item["id"]):
         columns = ["id","title","description","start","end","venue","address","town","latitude","longitude","coordinate_precision","age_min","age_max","audience_group","category","cost_status","cost_label","setting","registration_required","registration_url","status","accessibility","source_name","source_url","additional_sources_json","last_checked","created_at","updated_at"]
         values = [sql_string(event.get("id")), sql_string(event.get("title")), sql_string(event.get("description", "")), sql_string(event["start"]), sql_string(event.get("end")), sql_string(event["venue"]), sql_string(event.get("address", "")), sql_string(event["town"]), sql_number(event["latitude"]), sql_number(event["longitude"]), sql_string(event["coordinatePrecision"]), sql_number(event.get("ageMin")), sql_number(event.get("ageMax")), sql_string(event["audienceGroup"]), sql_string(event["category"]), sql_string(event["costStatus"]), sql_string(event.get("costLabel", "")), sql_string(event["setting"]), sql_string(event["registrationRequired"]), sql_string(event.get("registrationUrl")), sql_string(event["status"]), sql_string(event.get("accessibility")), sql_string(event["sourceName"]), sql_string(event["sourceUrl"]), sql_string(json.dumps(event.get("additionalSources", []), separators=(",", ":"))), sql_string(event["lastChecked"]), sql_string(published_at), sql_string(published_at)]
@@ -86,7 +89,6 @@ def build_publish_sql(payload, registry=None, published_at=None, current_generat
         statements.append("INSERT INTO sources (id,source_name,source_url,status,last_successful_refresh,last_attempt,last_success,using_last_known_good,last_error,updated_at) VALUES (" + ",".join(values) + ") ON CONFLICT(id) DO UPDATE SET source_name=excluded.source_name,source_url=excluded.source_url,status=excluded.status,last_successful_refresh=excluded.last_successful_refresh,last_attempt=excluded.last_attempt,last_success=excluded.last_success,using_last_known_good=excluded.using_last_known_good,last_error=excluded.last_error,updated_at=excluded.updated_at;")
     origin = payload.get("origin", {})
     statements.append("INSERT INTO catalog_metadata (id,generated_at,origin_label,origin_latitude,origin_longitude,updated_at) VALUES (1," + ",".join([sql_string(published_at), sql_string(origin.get("label", "Franklinton, NC 27525")), sql_number(origin.get("latitude", 36.101)), sql_number(origin.get("longitude", -78.458)), sql_string(published_at)]) + ") ON CONFLICT(id) DO UPDATE SET generated_at=excluded.generated_at,origin_label=excluded.origin_label,origin_latitude=excluded.origin_latitude,origin_longitude=excluded.origin_longitude,updated_at=excluded.updated_at WHERE excluded.generated_at >= catalog_metadata.generated_at;")
-    statements.append("COMMIT;")
     return "\n".join(statements) + "\n"
 
 

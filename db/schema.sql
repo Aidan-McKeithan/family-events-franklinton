@@ -20,6 +20,12 @@ CREATE TABLE IF NOT EXISTS catalog_metadata (
   origin_longitude REAL NOT NULL, updated_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS catalog_publish_guard (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  generated_at TEXT NOT NULL
+);
+INSERT OR IGNORE INTO catalog_publish_guard (id, generated_at) VALUES (1, '1970-01-01T00:00:00Z');
+
 CREATE TABLE IF NOT EXISTS events (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
