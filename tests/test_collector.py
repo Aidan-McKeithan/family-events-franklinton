@@ -61,8 +61,19 @@ class CollectorTests(unittest.TestCase):
         collected = {}
         add_event(collected, first)
         add_event(collected, second)
+        add_event(collected, second)
         self.assertEqual(len(collected), 1)
+        self.assertEqual(len(collected[first["id"]]["additionalSources"]), 1)
         self.assertEqual(collected[first["id"]]["additionalSources"][0]["sourceName"], "Town Calendar")
+
+    def test_same_url_with_different_source_name_is_retained_once(self):
+        first = normalize(self.raw, "County Library", "https://example.gov/calendar", "2026-09-01T00:00:00Z")
+        second = dict(first, sourceName="Town Calendar")
+        collected = {}
+        add_event(collected, first)
+        add_event(collected, second)
+        add_event(collected, second)
+        self.assertEqual(collected[first["id"]]["additionalSources"], [{"sourceName": "Town Calendar", "sourceUrl": first["sourceUrl"]}])
 
     def test_failed_source_retains_last_known_good_events_and_freshness(self):
         prior_event = normalize(self.raw, "Official Library", "https://example.gov/calendar", "2026-09-01T00:00:00Z")
@@ -94,6 +105,7 @@ class CollectorTests(unittest.TestCase):
             with patch.object(collector, "OUTPUT", output), patch.object(collector, "FEEDS", feeds), patch.object(collector, "fetch", side_effect=[fixture_text, "not a calendar"]):
                 result = collector.collect(datetime(2026, 9, 1, tzinfo=timezone.utc))
         matching = next(event for event in result["events"] if event["id"] == prior_event["id"])
+        self.assertEqual(len(matching["additionalSources"]), 1)
         self.assertEqual(matching["additionalSources"][0]["sourceName"], "Secondary Calendar")
 
 

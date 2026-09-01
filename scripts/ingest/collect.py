@@ -139,7 +139,9 @@ def add_event(collected, event):
     """Keep the first feed's fields and retain attribution from exact duplicate occurrences."""
     if event["id"] in collected:
         existing = collected[event["id"]]
-        if event["sourceName"] != existing["sourceName"] or event["sourceUrl"] != existing["sourceUrl"]:
+        existing_pairs = {(existing["sourceName"], existing["sourceUrl"])}
+        existing_pairs.update((source["sourceName"], source["sourceUrl"]) for source in existing.get("additionalSources", []))
+        if (event["sourceName"], event["sourceUrl"]) not in existing_pairs:
             existing.setdefault("additionalSources", []).append({"sourceName": event["sourceName"], "sourceUrl": event["sourceUrl"]})
     else:
         collected[event["id"]] = event
