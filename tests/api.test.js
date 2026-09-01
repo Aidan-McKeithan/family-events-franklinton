@@ -17,9 +17,9 @@ test("follows opaque cursors without age or location query parameters", async ()
 test("falls back to static data on 503, malformed data, repeated cursor, and timeout", async () => {
   const staticData = page([event("static")]);
   for (const mode of ["503", "malformed", "repeat", "timeout"]) {
-    const fetchImpl = async (url) => {
+    const fetchImpl = async (url, options = {}) => {
       if (url === "public/data/events.json") return response(staticData);
-      if (mode === "timeout") return new Promise(() => {});
+      if (mode === "timeout") return new Promise((resolve, reject) => options.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true }));
       if (mode === "repeat") return response(page([event("1")], { hasMore: true, nextCursor: "same" }));
       if (mode === "503") return response({}, false, 503);
       return response({ bad: true });
