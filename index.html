@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f3ea" />
+    <meta name="description" content="Find family-friendly events near Franklinton, North Carolina." />
+    <title>Little Day Out | Franklinton family events</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="logic.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#events">Skip to events</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Little Day Out home">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span><strong>Little Day Out</strong><small>Franklinton, NC</small></span>
+      </a>
+      <button class="saved-button" id="savedButton" type="button" aria-pressed="false">
+        <span aria-hidden="true">♡</span> Saved <span id="savedCount">0</span>
+      </button>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Small adventures, close to home</p>
+          <h1 id="page-title">What should we do today?</h1>
+          <p class="intro-copy">Fresh family-friendly finds around Franklinton, gathered from trusted local calendars.</p>
+        </div>
+        <div class="weather-note" aria-label="Search area">
+          <span class="sun" aria-hidden="true">☀</span>
+          <span><strong>Starting near 27525</strong><small>Change how far you’ll travel below</small></span>
+        </div>
+      </section>
+
+      <section class="finder" aria-labelledby="finder-title">
+        <div class="finder-heading">
+          <div>
+            <p class="step-label">Your outing finder</p>
+            <h2 id="finder-title">Make today fit your family</h2>
+          </div>
+          <button class="text-button" id="resetFilters" type="button">Reset filters</button>
+        </div>
+
+        <div class="quick-dates" role="group" aria-label="Choose when">
+          <button class="date-chip active" aria-pressed="true" data-date="today" type="button"><span>Today</span><small id="todayLabel"></small></button>
+          <button class="date-chip" aria-pressed="false" data-date="tomorrow" type="button"><span>Tomorrow</span><small id="tomorrowLabel"></small></button>
+          <button class="date-chip" aria-pressed="false" data-date="weekend" type="button"><span>This weekend</span><small id="weekendLabel"></small></button>
+          <button class="date-chip" aria-pressed="false" data-date="all" type="button"><span>Coming up</span><small>Next 30 days</small></button>
+        </div>
+
+        <div class="custom-dates">
+          <label>From <input id="startDate" type="date" /></label>
+          <label>Through <input id="endDate" type="date" /></label>
+          <button class="text-button" id="clearDates" type="button">Clear custom dates</button>
+          <span id="customDateError" class="field-error" role="alert"></span>
+        </div>
+
+        <div class="filter-grid">
+          <label class="range-control" for="ageRange">
+            <span><strong>Child’s age</strong><output id="ageOutput" for="ageRange">2½ years</output></span>
+            <input id="ageRange" type="range" min="0" max="18" step="0.5" value="2.5" />
+            <span class="range-ends"><small>Baby</small><small>18 years</small></span>
+            <span class="check-row"><input id="anyAge" type="checkbox" /> <span>Any age</span></span>
+            <span class="check-row"><input id="includeUnknownAge" type="checkbox" checked /> <span>Show events with no published age</span></span>
+          </label>
+
+          <label class="range-control" for="distanceRange">
+            <span><strong>Travel distance</strong><output id="distanceOutput" for="distanceRange">20 miles</output></span>
+            <input id="distanceRange" type="range" min="5" max="50" step="5" value="20" />
+            <span class="range-ends"><small>5 mi</small><small>50 mi</small></span>
+            <span class="check-row"><input id="anyDistance" type="checkbox" /> <span>Anywhere in supported area</span></span>
+          </label>
+
+          <label class="select-control" for="costFilter">
+            <span>Cost</span>
+            <select id="costFilter">
+              <option value="all">Any cost</option>
+              <option value="free">Free only</option>
+              <option value="paid">Paid</option>
+              <option value="unknown">Cost unknown</option>
+            </select>
+          </label>
+
+          <label class="select-control" for="settingFilter">
+            <span>Setting</span>
+            <select id="settingFilter">
+              <option value="all">Indoor or outdoor</option>
+              <option value="indoor">Indoor</option>
+              <option value="outdoor">Outdoor</option>
+              <option value="both">Both</option>
+              <option value="unknown">Setting unknown</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="secondary-filters">
+          <label class="select-control" for="registrationFilter"><span>Registration</span><select id="registrationFilter"><option value="all">Any registration status</option><option value="false">Not required</option><option value="true">Required</option><option value="unknown">Unknown</option></select></label>
+          <label class="check-row"><input id="includeUnknownFacts" type="checkbox" /> <span>Include unknown cost, setting, or registration when a definite filter is selected</span></label>
+        </div>
+
+        <fieldset class="category-filter">
+          <legend>What sounds fun?</legend>
+          <div id="categoryButtons">
+            <button class="category-chip active" aria-pressed="true" data-category="all" type="button">All activities</button>
+            <button class="category-chip" aria-pressed="false" data-category="stories" type="button">📚 Stories</button>
+            <button class="category-chip" aria-pressed="false" data-category="play" type="button">🫧 Play</button>
+            <button class="category-chip" aria-pressed="false" data-category="arts" type="button">🎨 Arts</button>
+            <button class="category-chip" aria-pressed="false" data-category="nature" type="button">🌿 Outdoors</button>
+            <button class="category-chip" aria-pressed="false" data-category="community" type="button">🎉 Community</button>
+          </div>
+        </fieldset>
+      </section>
+
+      <section class="results" id="events" aria-labelledby="resultsTitle">
+        <div class="results-heading">
+          <div><p class="eyebrow">Picked for your family</p><h2 id="resultsTitle">Today’s little adventures</h2></div>
+          <p id="resultSummary" role="status" aria-live="polite">Loading local events…</p>
+        </div>
+        <div class="event-grid" id="eventGrid"></div>
+        <div class="empty-state" id="emptyState" hidden>
+          <span aria-hidden="true">🌤️</span>
+          <h3>No exact matches yet</h3>
+          <p>Try a wider distance, another day, or “Coming up.” Community calendars change often.</p>
+          <button class="primary-button" id="showUpcoming" type="button">Show coming up</button>
+        </div>
+        <div class="empty-state" id="errorState" hidden><span aria-hidden="true">⚠️</span><h3>We couldn’t load the event list</h3><p>Your connection may be offline, or the calendar may be updating. Please try again.</p><button class="primary-button" id="retryLoad" type="button">Try again</button></div>
+      </section>
+
+      <section class="unknown-results" id="unknownAgeSection" hidden aria-labelledby="unknownTitle">
+        <div><p class="eyebrow">Worth a closer look</p><h2 id="unknownTitle">Age not specified</h2></div>
+        <p>These organizers didn’t publish an age range. Check the official listing to decide if they fit.</p>
+        <div class="event-grid" id="unknownEventGrid"></div>
+      </section>
+
+      <aside class="trust-note">
+        <span aria-hidden="true">✓</span>
+        <div><strong>Collected from official local sources</strong><p>Plans change. Always confirm time, availability, and registration with the organizer before heading out.</p></div>
+        <p id="freshness"></p>
+      </aside>
+      <div class="source-freshness" id="sourceFreshness" aria-label="Calendar freshness"></div>
+      <div class="source-warning" id="sourceWarning" hidden role="status"></div>
+    </main>
+
+    <footer>
+      <p><strong>Little Day Out</strong> is a free community helper made for families near Franklinton.</p>
+      <a href="https://github.com/Aidan-McKeithan/family-events-franklinton">How this site works</a>
+    </footer>
+  </body>
+</html>

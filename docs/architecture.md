@@ -58,7 +58,7 @@ The MVP origin is fixed at Franklinton, NC 27525. The browser calculates distanc
 
 Age matching uses inclusive bounds. A null minimum or maximum is open-ended. Events with no published age information are not treated as definite matches; they are displayed in a separate, optional group that asks the caregiver to verify suitability.
 
-Each occurrence in a recurring series has its own stable identifier. When multiple sources describe the same occurrence, normalization keeps all source URLs and resolves conflicting fields using a documented official-source priority.
+Each occurrence in a recurring series has its own stable identifier. Exact duplicates use normalized title, town, and start time. Feed order is the deterministic field priority; later exact matches retain their official links as additional sources. Similar-but-not-exact titles remain separate rather than risking an incorrect merge.
 
 ## Initial source policy
 
@@ -71,6 +71,8 @@ Initial candidates include:
 - Town of Youngsville public events
 - Granville County and library public events within the radius
 - Arts Council of Franklin County
+
+The first automated adapters use the official Franklin County and Granville County iCalendar subscription feeds. Calendars without an official structured feed remain manual candidates until their retrieval policy and reliability are established.
 
 Before automating a source, its adapter documentation must record the approved feed/API/retrieval method, supporting terms or robots decision, and the date checked.
 
