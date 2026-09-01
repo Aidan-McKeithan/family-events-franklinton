@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const { loadCatalog } = require("../api.js");
 
 const event = (id) => ({ id, title: "Storytime", start: "2026-09-01T12:00:00Z", end: null, latitude: 36, longitude: -78, sourceName: "Library", sourceUrl: "https://example.org/event", additionalSources: [] });
-const page = (events, extra = {}) => ({ schemaVersion: 1, generatedAt: "2026-09-01T12:00:00Z", events, sources: [{ sourceName: "Library", status: "fresh", lastSuccessfulRefresh: "2026-09-01T12:00:00Z" }], sourceFailures: [], hasMore: false, nextCursor: null, ...extra });
+const page = (events, extra = {}) => ({ schemaVersion: 1, generatedAt: "2026-09-01T12:00:00Z", origin: { label: "Franklinton, NC 27525", latitude: 36.101, longitude: -78.458 }, events, sources: [{ sourceName: "Library", status: "fresh", lastSuccessfulRefresh: "2026-09-01T12:00:00Z" }], sourceFailures: [], hasMore: false, nextCursor: null, ...extra });
 const response = (body, ok = true, status = 200) => ({ ok, status, json: async () => body });
 
 test("follows opaque cursors without age or location query parameters", async () => {
