@@ -32,6 +32,7 @@ PLACES = {
 }
 
 FAMILY_WORDS = re.compile(r"baby|babies|toddler|preschool|child|children|kid|kids|teen|family|families|storytime|story time|craft|steam|play|puppet|youth", re.I)
+ADULT_ONLY_WORDS = re.compile(r"\bfor adults?\b|\badults? only\b|\bseniors?\b|\b55\s*\+|\bages?\s+18\s*\+", re.I)
 AGE_RANGE = re.compile(r"ages?\s*(\d+(?:\.5)?)\s*(?:-|–|to)\s*(\d+(?:\.5)?)", re.I)
 AGE_UP_TO = re.compile(r"(?:up to|through)\s+age\s+(\d+(?:\.5)?)", re.I)
 
@@ -90,11 +91,22 @@ def category_for(text):
     return "community"
 
 
+def audience_group(text):
+    if re.search(r"\bteens?\b|teen leadership", text, re.I): return "teen"
+    if re.search(r"school[- ]age|\bK\s*[-–]\s*5|\bgrades?\b", text, re.I): return "school-age"
+    if re.search(r"newborn|cruiser|bab(?:y|ies)|toddler|preschool", text, re.I): return "early-childhood"
+    return "general"
+
+
+def clean_text(value):
+    return re.sub(r"<[^>]+>", " ", value or "").replace("&nbsp;", " ").strip()
+
+
 def normalize(raw, source_name, source_url, checked):
     title = raw.get("SUMMARY", "Untitled event")
     description = raw.get("DESCRIPTION", "")
     combined = f"{title} {description}"
-    if not FAMILY_WORDS.search(combined) or "DTSTART" not in raw:
+    if re.search(r"\badults?\b", title, re.I) or ADULT_ONLY_WORDS.search(combined) or not FAMILY_WORDS.search(combined) or "DTSTART" not in raw:
         return None
     place = locate(raw.get("LOCATION", ""))
     if place is None:
@@ -105,7 +117,7 @@ def normalize(raw, source_name, source_url, checked):
     age_min, age_max = ages(combined)
     occurrence_id = f"{title.lower().strip()}-{town.lower()}-{start.isoformat()}"
     detail_url = raw.get("URL", source_url)
-    location = raw.get("LOCATION", "Location listed by organizer").split(",")[0]
+    location = clean_text(raw.get("LOCATION", "Location listed by organizer").split(",")[0])
     status_text = raw.get("STATUS", "").upper()
     status = "cancelled" if status_text == "CANCELLED" or re.search(r"\bcancelled\b|\bcanceled\b", combined, re.I) else "postponed" if re.search(r"\bpostponed\b", combined, re.I) else "active"
     registration = "false" if re.search(r"\b(?:no|not)\s+registration\s+(?:is\s+)?required\b|\bregistration\s+(?:is\s+)?not\s+required\b", combined, re.I) else "true" if re.search(r"\bregistration\s+(?:is\s+)?required\b|\bregister\s+(?:at|by|online|now)\b", combined, re.I) else "unknown"
@@ -116,7 +128,7 @@ def normalize(raw, source_name, source_url, checked):
         "id": re.sub(r"[^a-zA-Z0-9._-]", "-", occurrence_id), "title": title, "description": description,
         "start": start.isoformat(), "end": end.isoformat() if end else None,
         "venue": location, "town": town, "latitude": lat, "longitude": lon, "coordinatePrecision": "town",
-        "ageMin": age_min, "ageMax": age_max, "category": category_for(combined),
+        "ageMin": age_min, "ageMax": age_max, "audienceGroup": audience_group(combined), "category": category_for(combined),
         "costStatus": "free" if re.search(r"\bfree\b", combined, re.I) else "unknown",
         "setting": "outdoor" if re.search(r"outdoor|park|outside", combined, re.I) else "unknown",
         "registrationRequired": registration, "status": status,

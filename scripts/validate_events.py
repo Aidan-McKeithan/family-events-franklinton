@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 DATA = Path(__file__).parents[1] / "public" / "data" / "events.json"
-REQUIRED = {"id", "title", "start", "venue", "town", "latitude", "longitude", "coordinatePrecision", "ageMin", "ageMax", "category", "costStatus", "setting", "registrationRequired", "status", "sourceName", "sourceUrl", "lastChecked"}
+REQUIRED = {"id", "title", "start", "venue", "town", "latitude", "longitude", "coordinatePrecision", "ageMin", "ageMax", "audienceGroup", "category", "costStatus", "setting", "registrationRequired", "status", "sourceName", "sourceUrl", "lastChecked"}
 
 
 def parse_timestamp(value):
@@ -40,6 +40,7 @@ def validate(data):
         assert type(event["longitude"]) in {int, float} and -180 <= event["longitude"] <= 180
         assert event["coordinatePrecision"] in {"venue", "town"}
         assert event["category"] in {"stories", "play", "arts", "nature", "community"}
+        assert event["audienceGroup"] in {"general", "early-childhood", "school-age", "teen"}
         for age in (event["ageMin"], event["ageMax"]):
             assert age is None or (type(age) in {int, float} and 0 <= age <= 18)
         if event["ageMin"] is not None and event["ageMax"] is not None:

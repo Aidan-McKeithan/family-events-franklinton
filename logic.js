@@ -24,7 +24,12 @@
   };
   const ageMatch = (event, age) => {
     if (age == null) return "match";
-    if (event.ageMin == null && event.ageMax == null) return "unknown";
+    if (event.ageMin == null && event.ageMax == null) {
+      if (event.audienceGroup === "early-childhood") return age <= 5 ? "match" : "no";
+      if (event.audienceGroup === "school-age") return age >= 5 ? "match" : "no";
+      if (event.audienceGroup === "teen") return age >= 13 ? "match" : "no";
+      return "unknown";
+    }
     return age >= (event.ageMin ?? -Infinity) && age <= (event.ageMax ?? Infinity) ? "match" : "no";
   };
   const distanceMiles = (a, b) => {

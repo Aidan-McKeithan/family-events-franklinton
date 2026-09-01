@@ -45,6 +45,15 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(normalize_event(required)["registrationRequired"], "true")
         self.assertEqual(normalize_event(unknown)["registrationRequired"], "unknown")
 
+    def test_adult_only_event_is_rejected(self):
+        raw = dict(self.raw, SUMMARY="Adult Crafternoon", DESCRIPTION="A craft program for adults.")
+        self.assertIsNone(normalize(raw, "Official Library", "https://example.gov/calendar", "2026-09-01T00:00:00Z"))
+
+    def test_explicit_teen_event_is_classified(self):
+        raw = dict(self.raw, SUMMARY="Teen Time", DESCRIPTION="A program for teens.")
+        event = normalize(raw, "Official Library", "https://example.gov/calendar", "2026-09-01T00:00:00Z")
+        self.assertEqual(event["audienceGroup"], "teen")
+
     def test_unsupported_recurrence_is_rejected(self):
         raw = dict(self.events[1], RRULE="FREQ=WEEKLY;BYDAY=MO,WE")
         with self.assertRaises(ValueError):
