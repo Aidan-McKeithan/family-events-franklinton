@@ -30,7 +30,7 @@ class BackendFoundationTests(unittest.TestCase):
         self.assertIn("last_attempt", worker)
         self.assertIn("cache-control", worker)
         self.assertIn("x-content-type-options", worker)
-        self.assertIn('status === "stale"', worker)
+        self.assertIn('"stale", "unavailable"', worker)
         self.assertIn("origin_latitude", worker)
         self.assertIn("invalid attribution metadata", worker)
 
