@@ -39,4 +39,9 @@ jobs:
           fi
           git commit -m "data: refresh local events"
           git push --force-with-lease origin data/refresh-events
-          gh pr view data/refresh-events || gh pr create --base main --head data/refresh-events --title "data: refresh local events" --body "Automated refresh from approved official calendar feeds. Verification must pass before merge."
+          OPEN_PR=$(gh pr list --head data/refresh-events --base main --state open --json number --jq '.[0].number')
+          if [ -z "$OPEN_PR" ]; then
+            gh pr create --base main --head data/refresh-events --title "data: refresh local events" --body "Automated refresh from approved official calendar feeds. Verification must pass before merge."
+          else
+            echo "Updated open refresh PR #$OPEN_PR"
+          fi
