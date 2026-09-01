@@ -72,6 +72,8 @@ Initial candidates include:
 - Granville County and library public events within the radius
 - Arts Council of Franklin County
 
+The first automated adapters use the official Franklin County and Granville County iCalendar subscription feeds. Calendars without an official structured feed remain manual candidates until their retrieval policy and reliability are established.
+
 Before automating a source, its adapter documentation must record the approved feed/API/retrieval method, supporting terms or robots decision, and the date checked.
 
 ## Failure behavior

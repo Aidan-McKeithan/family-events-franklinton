@@ -1,0 +1,38 @@
+name: Refresh official events
+
+on:
+  schedule:
+    - cron: "17 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Collect official calendars
+        run: python scripts/ingest/collect.py
+      - name: Validate refreshed data
+        run: python scripts/validate_events.py
+      - name: Run complete test suite
+        run: |
+          python -m unittest discover -s tests -v
+          node --test tests/logic.test.js
+      - name: Open or update a refresh pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "little-day-out-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git switch -C data/refresh-events
+          git add public/data/events.json
+          git diff --cached --quiet || git commit -m "data: refresh local events"
+          git push --force-with-lease origin data/refresh-events
+          gh pr view data/refresh-events || gh pr create --base main --head data/refresh-events --title "data: refresh local events" --body "Automated refresh from approved official calendar feeds. Verification must pass before merge."

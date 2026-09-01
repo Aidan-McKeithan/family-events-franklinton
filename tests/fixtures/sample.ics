@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+UID:sample-storytime-1
+DTSTART;TZID=America/New_York:20260916T103000
+DTEND;TZID=America/New_York:20260916T111500
+SUMMARY:Franklinton Family Storytime
+DESCRIPTION:Stories and songs for young children ages 0-5 and caregivers.
+LOCATION:Franklinton Branch Library, Franklinton, NC
+URL:https://www.franklincountync.gov/calendar.aspx?EID=1
+END:VEVENT
+BEGIN:VEVENT
+UID:recurring-storytime
+DTSTART;TZID=America/New_York:20260902T103000
+DTEND;TZID=America/New_York:20260902T110000
+RRULE:FREQ=WEEKLY;COUNT=3
+SUMMARY:Youngsville Toddler Storytime
+DESCRIPTION:Storytime for toddlers.
+LOCATION:Youngsville Branch Library, Youngsville, NC
+URL:https://www.franklincountync.gov/calendar.aspx?EID=2
+END:VEVENT
+END:VCALENDAR

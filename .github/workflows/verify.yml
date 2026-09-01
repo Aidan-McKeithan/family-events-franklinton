@@ -1,0 +1,49 @@
+name: Verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate event data
+        run: python scripts/validate_events.py
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+      - name: Run browser-logic tests
+        run: node --test tests/logic.test.js
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Stage public website only
+        run: |
+          mkdir _site
+          cp index.html styles.css app.js logic.js _site/
+          mkdir -p _site/public/data
+          cp public/data/events.json _site/public/data/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy verified site
+        id: deployment
+        uses: actions/deploy-pages@v4
