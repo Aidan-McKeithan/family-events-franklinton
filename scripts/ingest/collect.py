@@ -158,7 +158,7 @@ def expand_occurrences(raw, window_end):
         raise ValueError(f"Unsupported recurrence fields: {sorted(unsupported)}")
     frequency = parts.get("FREQ")
     if frequency not in {"DAILY", "WEEKLY"}:
-        return [raw]
+        raise ValueError(f"Unsupported recurrence frequency: {frequency}")
     interval = int(parts.get("INTERVAL", "1"))
     if interval < 1:
         raise ValueError("Recurrence interval must be positive")
@@ -188,6 +188,12 @@ def collect(now=None):
     previous_by_source = {}
     for event in previous.get("events", []):
         previous_by_source.setdefault(event["sourceName"], []).append(event)
+        for source in event.get("additionalSources", []):
+            attributed = dict(event)
+            attributed["sourceName"] = source["sourceName"]
+            attributed["sourceUrl"] = source["sourceUrl"]
+            attributed.pop("additionalSources", None)
+            previous_by_source.setdefault(source["sourceName"], []).append(attributed)
     previous_status = {item["sourceName"]: item for item in previous.get("sources", [])}
     collected, failures, sources = {}, [], []
     for source_name, feed_url, source_url in FEEDS:
@@ -209,7 +215,7 @@ def collect(now=None):
         except Exception as error:  # Keep other official sources usable.
             prior = previous_by_source.get(source_name, [])
             for event in prior:
-                collected.setdefault(event["id"], event)
+                add_event(collected, event)
             prior_checked = previous_status.get(source_name, {}).get("lastSuccessfulRefresh")
             print(f"{source_name} refresh failed: {error}", file=sys.stderr)
             failures.append({"sourceName": source_name, "message": "refresh failed", "usingLastKnownGood": bool(prior)})

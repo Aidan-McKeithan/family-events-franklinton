@@ -38,5 +38,6 @@
     catch { return new Set(); }
   };
   const validDateRange = (start, end) => !start || !end || start <= end;
-  return { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange };
+  const applyQuickDate = (state, date) => ({ ...state, date, startDate: "", endDate: "" });
+  return { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange, applyQuickDate };
 });

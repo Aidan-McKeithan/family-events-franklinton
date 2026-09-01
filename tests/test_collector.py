@@ -50,6 +50,11 @@ class CollectorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             expand_occurrences(raw, datetime(2026, 10, 1, tzinfo=EASTERN))
 
+    def test_unsupported_monthly_recurrence_is_rejected(self):
+        raw = dict(self.events[1], RRULE="FREQ=MONTHLY;COUNT=3")
+        with self.assertRaises(ValueError):
+            expand_occurrences(raw, datetime(2026, 12, 1, tzinfo=EASTERN))
+
     def test_exact_cross_source_duplicate_retains_attribution(self):
         first = normalize(self.raw, "County Library", "https://one.example.gov/calendar", "2026-09-01T00:00:00Z")
         second = normalize(self.raw, "Town Calendar", "https://two.example.gov/calendar", "2026-09-01T00:00:00Z")
@@ -70,6 +75,26 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(len(result["events"]), 1)
         self.assertEqual(result["sources"][0]["status"], "stale")
         self.assertTrue(result["sourceFailures"][0]["usingLastKnownGood"])
+
+    def test_failed_secondary_source_keeps_its_attribution(self):
+        prior_event = normalize(self.raw, "Primary Calendar", "https://primary.example.gov/calendar", "2026-09-01T00:00:00Z")
+        prior_event["additionalSources"] = [{"sourceName": "Secondary Calendar", "sourceUrl": "https://secondary.example.gov/calendar"}]
+        prior = {"events": [prior_event], "sources": [
+            {"sourceName": "Primary Calendar", "lastSuccessfulRefresh": "2026-09-01T00:00:00Z", "status": "fresh"},
+            {"sourceName": "Secondary Calendar", "lastSuccessfulRefresh": "2026-09-01T00:00:00Z", "status": "fresh"},
+        ]}
+        fixture_text = (Path(__file__).parent / "fixtures" / "sample.ics").read_text(encoding="utf-8")
+        feeds = [
+            ("Primary Calendar", "https://primary.example.gov/feed", "https://primary.example.gov/calendar"),
+            ("Secondary Calendar", "https://secondary.example.gov/feed", "https://secondary.example.gov/calendar"),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "events.json"
+            output.write_text(json.dumps(prior), encoding="utf-8")
+            with patch.object(collector, "OUTPUT", output), patch.object(collector, "FEEDS", feeds), patch.object(collector, "fetch", side_effect=[fixture_text, "not a calendar"]):
+                result = collector.collect(datetime(2026, 9, 1, tzinfo=timezone.utc))
+        matching = next(event for event in result["events"] if event["id"] == prior_event["id"])
+        self.assertEqual(matching["additionalSources"][0]["sourceName"], "Secondary Calendar")
 
 
 if __name__ == "__main__":

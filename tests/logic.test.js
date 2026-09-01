@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { ageMatch, dateKey, addDateKeyDays, weekendKeys, distanceMiles, parseSaved, validDateRange } = require("../logic.js");
+const { ageMatch, dateKey, addDateKeyDays, weekendKeys, distanceMiles, parseSaved, validDateRange, applyQuickDate } = require("../logic.js");
 
 test("age matching uses inclusive and open bounds", () => {
   assert.equal(ageMatch({ ageMin: 0, ageMax: 2.5 }, 2.5), "match");
@@ -33,4 +33,12 @@ test("custom date ranges reject reversed boundaries", () => {
   assert.equal(validDateRange("2026-09-01", "2026-09-30"), true);
   assert.equal(validDateRange("2026-09-30", "2026-09-01"), false);
   assert.equal(validDateRange("", "2026-09-01"), true);
+});
+
+test("quick date selection clears a custom range", () => {
+  const next = applyQuickDate({ date: "today", startDate: "2026-09-10", endDate: "2026-09-12", age: 2.5 }, "weekend");
+  assert.equal(next.date, "weekend");
+  assert.equal(next.startDate, "");
+  assert.equal(next.endDate, "");
+  assert.equal(next.age, 2.5);
 });

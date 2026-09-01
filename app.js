@@ -1,6 +1,6 @@
 const ORIGIN = { lat: 36.101, lon: -78.458 };
-const { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange } = LittleDayOutLogic;
-const state = { date: "today", startDate: "", endDate: "", age: 2.5, anyAge: false, includeUnknownAge: true, distance: 20, anyDistance: false, cost: "all", setting: "all", registration: "all", includeUnknownFacts: false, category: "all", savedOnly: false };
+const { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange, applyQuickDate } = LittleDayOutLogic;
+let state = { date: "today", startDate: "", endDate: "", age: 2.5, anyAge: false, includeUnknownAge: true, distance: 20, anyDistance: false, cost: "all", setting: "all", registration: "all", includeUnknownFacts: false, category: "all", savedOnly: false };
 let events = [];
 let saved = parseSaved(localStorage.getItem("little-day-out-saved"));
 let controlsBound = false;
@@ -116,7 +116,8 @@ function setDateLabels() {
 
 function bindControls() {
   const dateButtons = $$('[data-date]');
-  dateButtons.forEach((button) => button.addEventListener("click", () => { state.date = button.dataset.date; selectButton(dateButtons, button); render(); }));
+  const chooseQuickDate = (date, button) => { state = applyQuickDate(state, date); $("#startDate").value = $("#endDate").value = ""; $("#customDateError").textContent = ""; selectButton(dateButtons, button); render(); };
+  dateButtons.forEach((button) => button.addEventListener("click", () => chooseQuickDate(button.dataset.date, button)));
   const categoryButtons = $$('[data-category]');
   categoryButtons.forEach((button) => button.addEventListener("click", () => { state.category = button.dataset.category; selectButton(categoryButtons, button); render(); }));
   $("#ageRange").addEventListener("input", (event) => { state.age = Number(event.target.value); $("#ageOutput").textContent = state.age === 2.5 ? "2½ years" : `${state.age} ${state.age === 1 ? "year" : "years"}`; render(); });
@@ -137,7 +138,7 @@ function bindControls() {
   }));
   $("#clearDates").addEventListener("click", () => { state.startDate = state.endDate = ""; $("#startDate").value = $("#endDate").value = ""; $("#customDateError").textContent = ""; selectButton(dateButtons, dateButtons.find((button) => button.dataset.date === state.date)); render(); });
   $("#savedButton").addEventListener("click", () => { state.savedOnly = !state.savedOnly; render(); });
-  $("#showUpcoming").addEventListener("click", () => { state.date = "all"; selectButton(dateButtons, dateButtons.find((b) => b.dataset.date === "all")); render(); });
+  $("#showUpcoming").addEventListener("click", () => chooseQuickDate("all", dateButtons.find((b) => b.dataset.date === "all")));
   $("#resetFilters").addEventListener("click", () => { window.location.reload(); });
   $("#retryLoad").addEventListener("click", init);
 }
