@@ -53,6 +53,8 @@ def validate(data):
         if event.get("registrationUrl"):
             registration_url = urlparse(event["registrationUrl"])
             assert registration_url.scheme == "https" and registration_url.netloc
+        for source in event.get("additionalSources", []):
+            assert source["sourceName"] and urlparse(source["sourceUrl"]).scheme == "https"
         parse_timestamp(event["lastChecked"])
 
 

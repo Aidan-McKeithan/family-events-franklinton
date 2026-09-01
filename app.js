@@ -1,8 +1,9 @@
 const ORIGIN = { lat: 36.101, lon: -78.458 };
-const { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved } = LittleDayOutLogic;
+const { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange } = LittleDayOutLogic;
 const state = { date: "today", startDate: "", endDate: "", age: 2.5, anyAge: false, includeUnknownAge: true, distance: 20, anyDistance: false, cost: "all", setting: "all", registration: "all", includeUnknownFacts: false, category: "all", savedOnly: false };
 let events = [];
 let saved = parseSaved(localStorage.getItem("little-day-out-saved"));
+let controlsBound = false;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -72,6 +73,7 @@ function card(event) {
       <small>Checked ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(event.lastChecked)))}</small>
       ${event.registrationUrl ? `<a class="source-link" href="${escapeHtml(safeUrl(event.registrationUrl))}" target="_blank" rel="noopener noreferrer"><span>Registration</span><span aria-hidden="true">↗</span></a>` : ""}
       <a class="source-link" href="${escapeHtml(safeUrl(event.sourceUrl))}" target="_blank" rel="noopener noreferrer"><span>Check official details</span><span aria-hidden="true">↗</span></a>
+      ${(event.additionalSources || []).map((source) => `<a class="source-link" href="${escapeHtml(safeUrl(source.sourceUrl))}" target="_blank" rel="noopener noreferrer"><span>Also listed by ${escapeHtml(source.sourceName)}</span><span aria-hidden="true">↗</span></a>`).join("")}
     </div></article>`;
 }
 
@@ -126,8 +128,14 @@ function bindControls() {
   $("#settingFilter").addEventListener("change", (event) => { state.setting = event.target.value; render(); });
   $("#registrationFilter").addEventListener("change", (event) => { state.registration = event.target.value; render(); });
   $("#includeUnknownFacts").addEventListener("change", (event) => { state.includeUnknownFacts = event.target.checked; render(); });
-  ["startDate", "endDate"].forEach((id) => $("#" + id).addEventListener("change", () => { state.startDate = $("#startDate").value; state.endDate = $("#endDate").value; render(); }));
-  $("#clearDates").addEventListener("click", () => { state.startDate = state.endDate = ""; $("#startDate").value = $("#endDate").value = ""; render(); });
+  ["startDate", "endDate"].forEach((id) => $("#" + id).addEventListener("change", () => {
+    state.startDate = $("#startDate").value; state.endDate = $("#endDate").value;
+    const invalid = !validDateRange(state.startDate, state.endDate);
+    $("#customDateError").textContent = invalid ? "The start date must be before the end date." : "";
+    selectButton(dateButtons, null);
+    if (!invalid) render();
+  }));
+  $("#clearDates").addEventListener("click", () => { state.startDate = state.endDate = ""; $("#startDate").value = $("#endDate").value = ""; $("#customDateError").textContent = ""; selectButton(dateButtons, dateButtons.find((button) => button.dataset.date === state.date)); render(); });
   $("#savedButton").addEventListener("click", () => { state.savedOnly = !state.savedOnly; render(); });
   $("#showUpcoming").addEventListener("click", () => { state.date = "all"; selectButton(dateButtons, dateButtons.find((b) => b.dataset.date === "all")); render(); });
   $("#resetFilters").addEventListener("click", () => { window.location.reload(); });
@@ -140,7 +148,7 @@ function validDataset(data) {
 
 async function init() {
   setDateLabels();
-  bindControls();
+  if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
     const response = await fetch("public/data/events.json");
     if (!response.ok) throw new Error("Could not load events");
@@ -150,6 +158,8 @@ async function init() {
     $("#errorState").hidden = true;
     $("#freshness").textContent = `Updated ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
     const failures = Array.isArray(data.sourceFailures) ? data.sourceFailures : [];
+    const sources = Array.isArray(data.sources) ? data.sources : [];
+    $("#sourceFreshness").innerHTML = sources.map((source) => `<span>${escapeHtml(source.sourceName)}: ${escapeHtml(source.status)}${source.lastSuccessfulRefresh ? ` · ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(source.lastSuccessfulRefresh)))}` : " · never refreshed"}</span>`).join("");
     $("#sourceWarning").hidden = failures.length === 0;
     $("#sourceWarning").textContent = failures.length ? `Some calendars could not refresh and may be stale: ${failures.map((failure) => failure.sourceName).join(", ")}.` : "";
     render();

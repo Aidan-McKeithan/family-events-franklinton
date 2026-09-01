@@ -56,6 +56,7 @@
           <label>From <input id="startDate" type="date" /></label>
           <label>Through <input id="endDate" type="date" /></label>
           <button class="text-button" id="clearDates" type="button">Clear custom dates</button>
+          <span id="customDateError" class="field-error" role="alert"></span>
         </div>
 
         <div class="filter-grid">
@@ -140,6 +141,7 @@
         <div><strong>Collected from official local sources</strong><p>Plans change. Always confirm time, availability, and registration with the organizer before heading out.</p></div>
         <p id="freshness"></p>
       </aside>
+      <div class="source-freshness" id="sourceFreshness" aria-label="Calendar freshness"></div>
       <div class="source-warning" id="sourceWarning" hidden role="status"></div>
     </main>
 

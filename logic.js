@@ -37,5 +37,6 @@
     try { const value = JSON.parse(raw || "[]"); return new Set(Array.isArray(value) ? value.filter((item) => typeof item === "string") : []); }
     catch { return new Set(); }
   };
-  return { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved };
+  const validDateRange = (start, end) => !start || !end || start <= end;
+  return { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange };
 });

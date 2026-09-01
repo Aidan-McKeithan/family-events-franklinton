@@ -103,9 +103,15 @@ def normalize(raw, source_name, source_url, checked):
     start = parse_ical_time(raw["DTSTART"])
     end = parse_ical_time(raw["DTEND"]) if raw.get("DTEND") else None
     age_min, age_max = ages(combined)
-    occurrence_id = f"{title}-{town}-{start.isoformat()}"
+    occurrence_id = f"{title.lower().strip()}-{town.lower()}-{start.isoformat()}"
     detail_url = raw.get("URL", source_url)
     location = raw.get("LOCATION", "Location listed by organizer").split(",")[0]
+    status_text = raw.get("STATUS", "").upper()
+    status = "cancelled" if status_text == "CANCELLED" or re.search(r"\bcancelled\b|\bcanceled\b", combined, re.I) else "postponed" if re.search(r"\bpostponed\b", combined, re.I) else "active"
+    registration = "false" if re.search(r"\b(?:no|not)\s+registration\s+(?:is\s+)?required\b|\bregistration\s+(?:is\s+)?not\s+required\b", combined, re.I) else "true" if re.search(r"\bregistration\s+(?:is\s+)?required\b|\bregister\s+(?:at|by|online|now)\b", combined, re.I) else "unknown"
+    registration_url = raw.get("X-REGISTRATION-URL")
+    if not registration_url or not registration_url.startswith("https://"):
+        registration_url = None
     return {
         "id": re.sub(r"[^a-zA-Z0-9._-]", "-", occurrence_id), "title": title, "description": description,
         "start": start.isoformat(), "end": end.isoformat() if end else None,
@@ -113,9 +119,8 @@ def normalize(raw, source_name, source_url, checked):
         "ageMin": age_min, "ageMax": age_max, "category": category_for(combined),
         "costStatus": "free" if re.search(r"\bfree\b", combined, re.I) else "unknown",
         "setting": "outdoor" if re.search(r"outdoor|park|outside", combined, re.I) else "unknown",
-        "registrationRequired": "true" if re.search(r"register|registration required", combined, re.I) else "unknown",
-        "status": "postponed" if re.search(r"postponed", combined, re.I) else "active",
-        "accessibility": None, "registrationUrl": detail_url if re.search(r"register|registration required", combined, re.I) and detail_url.startswith("https://") else None,
+        "registrationRequired": registration, "status": status,
+        "accessibility": None, "registrationUrl": registration_url,
         "sourceName": source_name, "sourceUrl": detail_url if detail_url.startswith("https://") else source_url,
         "lastChecked": checked,
     }
@@ -124,7 +129,20 @@ def normalize(raw, source_name, source_url, checked):
 def fetch(url):
     request = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "text/calendar,text/plain;q=0.9,*/*;q=0.1"})
     with urlopen(request, timeout=25) as response:
-        return response.read().decode("utf-8", errors="replace")
+        text = response.read().decode("utf-8", errors="replace")
+        if "BEGIN:VCALENDAR" not in text or "END:VCALENDAR" not in text:
+            raise ValueError("Official feed did not return iCalendar data")
+        return text
+
+
+def add_event(collected, event):
+    """Keep the first feed's fields and retain attribution from exact duplicate occurrences."""
+    if event["id"] in collected:
+        existing = collected[event["id"]]
+        if event["sourceUrl"] != existing["sourceUrl"]:
+            existing.setdefault("additionalSources", []).append({"sourceName": event["sourceName"], "sourceUrl": event["sourceUrl"]})
+    else:
+        collected[event["id"]] = event
 
 
 def expand_occurrences(raw, window_end):
@@ -132,11 +150,19 @@ def expand_occurrences(raw, window_end):
     rule = raw.get("RRULE")
     if not rule:
         return [raw]
+    if any(key in raw for key in ("EXDATE", "RDATE", "RECURRENCE-ID")):
+        raise ValueError("Unsupported recurrence exception")
     parts = dict(item.split("=", 1) for item in rule.split(";") if "=" in item)
+    unsupported = set(parts) - {"FREQ", "COUNT", "UNTIL", "INTERVAL"}
+    if unsupported:
+        raise ValueError(f"Unsupported recurrence fields: {sorted(unsupported)}")
     frequency = parts.get("FREQ")
     if frequency not in {"DAILY", "WEEKLY"}:
         return [raw]
-    step = timedelta(days=1 if frequency == "DAILY" else 7)
+    interval = int(parts.get("INTERVAL", "1"))
+    if interval < 1:
+        raise ValueError("Recurrence interval must be positive")
+    step = timedelta(days=(1 if frequency == "DAILY" else 7) * interval)
     start = parse_ical_time(raw["DTSTART"])
     original_end = parse_ical_time(raw["DTEND"]) if raw.get("DTEND") else None
     duration = original_end - start if original_end else None
@@ -167,23 +193,26 @@ def collect(now=None):
     for source_name, feed_url, source_url in FEEDS:
         try:
             source_events = []
-            for raw in parse_ics(fetch(feed_url)):
+            raw_events = parse_ics(fetch(feed_url))
+            if not raw_events:
+                raise ValueError("Official feed returned zero calendar events")
+            for raw in raw_events:
                 for occurrence in expand_occurrences(raw, cutoff):
                     event = normalize(occurrence, source_name, source_url, checked)
                     if event and now.astimezone(EASTERN) - timedelta(days=1) <= parse_ical_time(occurrence["DTSTART"]) <= cutoff:
                         source_events.append(event)
+            if not source_events:
+                raise ValueError("Official feed produced zero supported upcoming family events")
             for event in source_events:
-                if event["id"] in collected:
-                    collected[event["id"]].setdefault("additionalSources", []).append({"sourceName": source_name, "sourceUrl": event["sourceUrl"]})
-                else:
-                    collected[event["id"]] = event
+                add_event(collected, event)
             sources.append({"sourceName": source_name, "lastSuccessfulRefresh": checked, "status": "fresh"})
         except Exception as error:  # Keep other official sources usable.
             prior = previous_by_source.get(source_name, [])
             for event in prior:
                 collected.setdefault(event["id"], event)
             prior_checked = previous_status.get(source_name, {}).get("lastSuccessfulRefresh")
-            failures.append({"sourceName": source_name, "message": str(error), "usingLastKnownGood": bool(prior)})
+            print(f"{source_name} refresh failed: {error}", file=sys.stderr)
+            failures.append({"sourceName": source_name, "message": "refresh failed", "usingLastKnownGood": bool(prior)})
             sources.append({"sourceName": source_name, "lastSuccessfulRefresh": prior_checked, "status": "stale" if prior else "unavailable"})
     if not collected:
         raise RuntimeError("No source produced valid events; preserving last known good dataset. " + "; ".join(item["sourceName"] for item in failures))

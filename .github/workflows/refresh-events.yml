@@ -33,6 +33,10 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git switch -C data/refresh-events
           git add public/data/events.json
-          git diff --cached --quiet || git commit -m "data: refresh local events"
+          if git diff --cached --quiet; then
+            echo "No event changes"
+            exit 0
+          fi
+          git commit -m "data: refresh local events"
           git push --force-with-lease origin data/refresh-events
           gh pr view data/refresh-events || gh pr create --base main --head data/refresh-events --title "data: refresh local events" --body "Automated refresh from approved official calendar feeds. Verification must pass before merge."

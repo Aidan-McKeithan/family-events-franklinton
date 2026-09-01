@@ -31,7 +31,7 @@ class StaticSiteTests(unittest.TestCase):
         cls.parser.feed(cls.html)
 
     def test_required_controls_exist(self):
-        required = {"ageRange", "distanceRange", "startDate", "endDate", "costFilter", "settingFilter", "registrationFilter", "includeUnknownAge"}
+        required = {"ageRange", "distanceRange", "startDate", "endDate", "costFilter", "settingFilter", "registrationFilter", "includeUnknownAge", "sourceFreshness", "customDateError"}
         self.assertFalse(required - self.parser.ids)
 
     def test_toggle_buttons_expose_pressed_state(self):
@@ -46,6 +46,8 @@ class StaticSiteTests(unittest.TestCase):
     def test_dynamic_event_text_is_escaped(self):
         self.assertIn("escapeHtml(event.title)", self.js)
         self.assertIn("safeUrl(event.sourceUrl)", self.js)
+        self.assertIn("source.lastSuccessfulRefresh", self.js)
+        self.assertIn("controlsBound", self.js)
 
 
 if __name__ == "__main__":

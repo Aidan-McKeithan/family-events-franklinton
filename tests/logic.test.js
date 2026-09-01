@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { ageMatch, dateKey, addDateKeyDays, weekendKeys, distanceMiles, parseSaved } = require("../logic.js");
+const { ageMatch, dateKey, addDateKeyDays, weekendKeys, distanceMiles, parseSaved, validDateRange } = require("../logic.js");
 
 test("age matching uses inclusive and open bounds", () => {
   assert.equal(ageMatch({ ageMin: 0, ageMax: 2.5 }, 2.5), "match");
@@ -27,4 +27,10 @@ test("corrupt saved data safely becomes empty", () => {
   assert.equal(parseSaved("not-json").size, 0);
   assert.equal(parseSaved('{"bad":true}').size, 0);
   assert.deepEqual([...parseSaved('["a", 2]')], ["a"]);
+});
+
+test("custom date ranges reject reversed boundaries", () => {
+  assert.equal(validDateRange("2026-09-01", "2026-09-30"), true);
+  assert.equal(validDateRange("2026-09-30", "2026-09-01"), false);
+  assert.equal(validDateRange("", "2026-09-01"), true);
 });
