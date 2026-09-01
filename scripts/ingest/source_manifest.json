@@ -1,0 +1,67 @@
+{
+  "manifestVersion": 1,
+  "region": "Raleigh area / Franklin and Granville counties",
+  "refreshedAt": "2026-09-01T00:00:00Z",
+  "sources": [
+    {
+      "sourceId": "franklin-library",
+      "sourceName": "Franklin County Library",
+      "kind": "ical",
+      "feedUrl": "https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "enabled": true,
+      "refreshIntervalMinutes": 360,
+      "status": "fresh"
+    },
+    {
+      "sourceId": "franklin-kids-teens",
+      "sourceName": "Franklin County Kids & Teens",
+      "kind": "ical",
+      "feedUrl": "https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=47",
+      "enabled": true,
+      "refreshIntervalMinutes": 360,
+      "status": "fresh"
+    },
+    {
+      "sourceId": "franklin-parks",
+      "sourceName": "Franklin County Parks & Recreation",
+      "kind": "ical",
+      "feedUrl": "https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=32",
+      "enabled": true,
+      "refreshIntervalMinutes": 360,
+      "status": "fresh"
+    },
+    {
+      "sourceId": "granville-library",
+      "sourceName": "Granville County Library",
+      "kind": "ical",
+      "feedUrl": "https://www.granvillecounty.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+      "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
+      "enabled": true,
+      "refreshIntervalMinutes": 360,
+      "status": "fresh"
+    },
+    {
+      "sourceId": "raleigh-parks",
+      "sourceName": "City of Raleigh Parks",
+      "kind": "web",
+      "sourceUrl": "https://raleighnc.gov/parks",
+      "enabled": false,
+      "refreshIntervalMinutes": 720,
+      "status": "disabled",
+      "note": "Candidate only; enable after confirming a permitted structured feed or API."
+    },
+    {
+      "sourceId": "wake-library",
+      "sourceName": "Wake County Public Libraries",
+      "kind": "web",
+      "sourceUrl": "https://catalog.wake.gov/events",
+      "enabled": false,
+      "refreshIntervalMinutes": 720,
+      "status": "disabled",
+      "note": "Candidate only; enable after confirming a permitted structured feed or API."
+    }
+  ]
+}

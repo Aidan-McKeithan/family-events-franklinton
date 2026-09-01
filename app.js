@@ -1,5 +1,6 @@
 const ORIGIN = { lat: 36.101, lon: -78.458 };
 const { dateKey, addDateKeyDays, weekendKeys, ageMatch, distanceMiles, parseSaved, validDateRange, applyQuickDate } = LittleDayOutLogic;
+const { loadCatalog } = LittleDayOutApi;
 let state = { date: "today", startDate: "", endDate: "", age: 2.5, anyAge: false, includeUnknownAge: true, distance: 20, anyDistance: false, cost: "all", setting: "all", registration: "all", includeUnknownFacts: false, category: "all", savedOnly: false };
 let events = [];
 let saved = parseSaved(localStorage.getItem("little-day-out-saved"));
@@ -143,24 +144,41 @@ function bindControls() {
   $("#retryLoad").addEventListener("click", init);
 }
 
-function validDataset(data) {
-  return data && Array.isArray(data.events) && data.events.every((event) => typeof event.id === "string" && typeof event.title === "string" && Number.isFinite(event.latitude) && Number.isFinite(event.longitude) && typeof event.sourceUrl === "string");
+async function legacyInitUnused() {
+  setDateLabels();
+  if (!controlsBound) { bindControls(); controlsBound = true; }
+  try {
+    const apiBase = typeof window.EVENTS_API_BASE === "string" ? window.EVENTS_API_BASE.replace(/\/$/, "") : "";
+    const catalog = await loadCatalog({ apiBase, staticUrl: "public/data/events.json" });
+    const { data, usingFallback } = catalog;
+    events = data.events;
+    $("#errorState").hidden = true;
+    const failures = Array.isArray(data.sourceFailures) ? data.sourceFailures : [];
+    const sources = Array.isArray(data.sources) ? data.sources : [];
+    $("#sourceFreshness").innerHTML = sources.map((source) => `<span>${escapeHtml(source.sourceName)}: ${escapeHtml(source.status)}${source.lastSuccessfulRefresh ? ` · ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(source.lastSuccessfulRefresh)))}` : " · never refreshed"}</span>`).join("");
+    $("#sourceWarning").hidden = failures.length === 0;
+    $("#sourceWarning").textContent = failures.length ? `Some calendars could not refresh and may be stale: ${failures.map((failure) => failure.sourceName).join(", ")}.` : "";
+    render();
+  } catch (error) {
+    $("#resultSummary").textContent = "Events are temporarily unavailable";
+    $("#emptyState").hidden = true;
+    $("#errorState").hidden = false;
+  }
 }
 
 async function init() {
   setDateLabels();
   if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
-    const response = await fetch("public/data/events.json");
-    if (!response.ok) throw new Error("Could not load events");
-    const data = await response.json();
-    if (!validDataset(data)) throw new Error("Invalid event data");
+    const apiBase = typeof window.EVENTS_API_BASE === "string" ? window.EVENTS_API_BASE.replace(/\/$/, "") : "";
+    const catalog = await loadCatalog({ apiBase, staticUrl: "public/data/events.json" });
+    const { data } = catalog;
     events = data.events;
     $("#errorState").hidden = true;
-    $("#freshness").textContent = `Updated ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
-    const failures = Array.isArray(data.sourceFailures) ? data.sourceFailures : [];
-    const sources = Array.isArray(data.sources) ? data.sources : [];
-    $("#sourceFreshness").innerHTML = sources.map((source) => `<span>${escapeHtml(source.sourceName)}: ${escapeHtml(source.status)}${source.lastSuccessfulRefresh ? ` · ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(source.lastSuccessfulRefresh)))}` : " · never refreshed"}</span>`).join("");
+    $("#freshness").textContent = `${catalog.statusText} - ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
+    const failures = data.sourceFailures;
+    const sources = data.sources;
+    $("#sourceFreshness").innerHTML = sources.map((source) => `<span>${escapeHtml(source.sourceName)}: ${escapeHtml(source.status)}${source.lastSuccessfulRefresh ? ` - ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(source.lastSuccessfulRefresh)))}` : " - never refreshed"}</span>`).join("");
     $("#sourceWarning").hidden = failures.length === 0;
     $("#sourceWarning").textContent = failures.length ? `Some calendars could not refresh and may be stale: ${failures.map((failure) => failure.sourceName).join(", ")}.` : "";
     render();
