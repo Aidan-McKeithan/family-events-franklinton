@@ -1,0 +1,6 @@
+[
+  {"sourceId":"franklin-library","sourceName":"Franklin County Library","kind":"ical","feedUrl":"https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar","sourceUrl":"https://www.franklincountync.gov/calendar.aspx?CID=24","enabled":true,"status":"fresh"},
+  {"sourceId":"franklin-kids-teens","sourceName":"Franklin County Kids & Teens","kind":"ical","feedUrl":"https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar","sourceUrl":"https://www.franklincountync.gov/calendar.aspx?CID=47","enabled":true,"status":"fresh"},
+  {"sourceId":"franklin-parks","sourceName":"Franklin County Parks & Recreation","kind":"ical","feedUrl":"https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar","sourceUrl":"https://www.franklincountync.gov/calendar.aspx?CID=32","enabled":true,"status":"fresh"},
+  {"sourceId":"granville-library","sourceName":"Granville County Library","kind":"ical","feedUrl":"https://www.granvillecounty.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar","sourceUrl":"https://www.granvillecounty.org/calendar.aspx?CID=26&view=list","enabled":true,"status":"fresh"}
+]

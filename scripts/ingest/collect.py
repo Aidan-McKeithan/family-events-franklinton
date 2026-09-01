@@ -8,17 +8,17 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
+try:
+    from .source_manifest import enabled_feeds
+except ImportError:  # Supports the existing GitHub job's `python scripts/...py` form.
+    from source_manifest import enabled_feeds
+
 ROOT = Path(__file__).parents[2]
 OUTPUT = ROOT / "public" / "data" / "events.json"
 EASTERN = ZoneInfo("America/New_York")
 USER_AGENT = "LittleDayOut/1.0 (+https://github.com/Aidan-McKeithan/family-events-franklinton)"
 
-FEEDS = [
-    ("Franklin County Library", "https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar", "https://www.franklincountync.gov/calendar.aspx?CID=24"),
-    ("Franklin County Kids & Teens", "https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar", "https://www.franklincountync.gov/calendar.aspx?CID=47"),
-    ("Franklin County Parks & Recreation", "https://www.franklincountync.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar", "https://www.franklincountync.gov/calendar.aspx?CID=32"),
-    ("Granville County Library", "https://www.granvillecounty.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar", "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list"),
-]
+FEEDS = enabled_feeds()
 
 PLACES = {
     "franklinton": ("Franklinton, NC", 36.1018, -78.4581),

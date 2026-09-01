@@ -151,13 +151,19 @@ async function init() {
   setDateLabels();
   if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
-    const response = await fetch("public/data/events.json");
+    const apiBase = typeof window.EVENTS_API_BASE === "string" ? window.EVENTS_API_BASE.replace(/\/$/, "") : "";
+    let response = apiBase ? await fetch(`${apiBase}/api/events`, { cache: "no-store" }) : null;
+    let usingFallback = false;
+    if (!response || !response.ok) {
+      usingFallback = true;
+      response = await fetch("public/data/events.json", { cache: "no-store" });
+    }
     if (!response.ok) throw new Error("Could not load events");
     const data = await response.json();
     if (!validDataset(data)) throw new Error("Invalid event data");
     events = data.events;
     $("#errorState").hidden = true;
-    $("#freshness").textContent = `Updated ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
+    $("#freshness").textContent = `${usingFallback ? "Using saved catalog · " : "Updated "}${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
     const failures = Array.isArray(data.sourceFailures) ? data.sourceFailures : [];
     const sources = Array.isArray(data.sources) ? data.sources : [];
     $("#sourceFreshness").innerHTML = sources.map((source) => `<span>${escapeHtml(source.sourceName)}: ${escapeHtml(source.status)}${source.lastSuccessfulRefresh ? ` · ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(source.lastSuccessfulRefresh)))}` : " · never refreshed"}</span>`).join("");
