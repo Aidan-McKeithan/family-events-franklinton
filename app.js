@@ -144,7 +144,7 @@ function bindControls() {
   $("#retryLoad").addEventListener("click", init);
 }
 
-async function legacyInit() {
+async function legacyInitUnused() {
   setDateLabels();
   if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
@@ -166,7 +166,7 @@ async function legacyInit() {
   }
 }
 
-async function legacyInit() {
+async function init() {
   setDateLabels();
   if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
