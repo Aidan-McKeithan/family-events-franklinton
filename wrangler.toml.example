@@ -1,0 +1,9 @@
+name = "little-day-out-api"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "EVENTS_DB"
+database_name = "little-day-out-events"
+database_id = "replace-with-cloudflare-d1-database-id"
+migrations_dir = "db/migrations"
