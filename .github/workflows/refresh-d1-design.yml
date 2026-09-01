@@ -1,0 +1,24 @@
+name: Refresh D1 catalog (design)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+permissions:
+  contents: read
+jobs:
+  validate-publisher:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate publisher output
+        run: |
+          python -m unittest tests.test_source_manifest tests.test_publisher -v
+          python scripts/ingest/package_publication.py public/data/events.json /tmp/publication.json
+          python -c "import json; p=json.load(open('/tmp/publication.json')); assert p['schemaVersion']==1 and p['nextGeneratedAt'] and isinstance(p['statements'],list)"
+      # Future authenticated steps (disabled until deployment/secrets):
+      # CURRENT_GENERATED_AT=$(curl -fsS "$CATALOG_API_URL/api/events?limit=1" | jq -r .generatedAt)
+      # python scripts/ingest/package_publication.py public/data/events.json /tmp/publication.json --expected-generated-at "$CURRENT_GENERATED_AT"
+      # curl -fsS -X POST "$CATALOG_PUBLISH_URL" -H "Authorization: Bearer $CATALOG_PUBLISH_TOKEN" -H "Content-Type: application/json" --data-binary @/tmp/publication.json

@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from scripts.ingest.publish import build_publish_sql
+from scripts.ingest.package_publication import package
 
 ROOT = Path(__file__).parents[1]
 
@@ -17,8 +18,9 @@ class PublisherTests(unittest.TestCase):
         first = build_publish_sql(self.payload, self.registry)
         second = build_publish_sql(self.payload, self.registry)
         self.assertEqual(first, second)
-        self.assertTrue(first.startswith("BEGIN TRANSACTION;"))
-        self.assertTrue(first.endswith("COMMIT;\n"))
+        self.assertNotIn("BEGIN TRANSACTION", first)
+        self.assertNotIn("COMMIT", first)
+        self.assertNotIn("TEMP", first)
         self.assertIn("catalog_metadata", first)
         self.assertNotIn("created_at=excluded.created_at", first)
         self.assertIn("WHERE excluded.generated_at >= catalog_metadata.generated_at", first)
@@ -64,7 +66,7 @@ class PublisherTests(unittest.TestCase):
     def test_sql_failure_rolls_back_batch(self):
         connection = sqlite3.connect(":memory:")
         connection.executescript((ROOT / "db" / "schema.sql").read_text(encoding="utf-8"))
-        sql = build_publish_sql(self.payload, self.registry).replace("COMMIT;", "INSERT INTO no_such_table VALUES (1);\nCOMMIT;")
+        sql = "BEGIN;\n" + build_publish_sql(self.payload, self.registry) + "INSERT INTO no_such_table VALUES (1);\nCOMMIT;"
         with self.assertRaises(sqlite3.OperationalError):
             connection.executescript(sql)
         connection.rollback()
@@ -81,15 +83,18 @@ class PublisherTests(unittest.TestCase):
         connection.executescript(build_publish_sql(changed, self.registry))
         self.assertEqual(connection.execute("SELECT count(*) FROM events WHERE source_name='Franklin County Kids & Teens'").fetchone()[0], before)
 
-    def test_older_snapshot_aborts_before_mutation(self):
-        connection = sqlite3.connect(":memory:")
-        connection.executescript((ROOT / "db" / "schema.sql").read_text(encoding="utf-8"))
-        connection.executescript(build_publish_sql(self.payload, self.registry, published_at="2026-09-02T00:00:00Z"))
-        before = connection.execute("SELECT count(*) FROM events").fetchone()[0]
-        with self.assertRaises(sqlite3.IntegrityError):
-            connection.executescript(build_publish_sql(self.payload, self.registry, published_at="2026-09-01T00:00:00Z"))
-        connection.rollback()
-        self.assertEqual(connection.execute("SELECT count(*) FROM events").fetchone()[0], before)
+    def test_older_snapshot_guard_is_before_batch(self):
+        executor = (ROOT / "scripts" / "ingest" / "d1_batch_executor.js").read_text(encoding="utf-8")
+        self.assertLess(executor.index("generated_at"), executor.index("db.batch"))
+        self.assertIn("refusing to publish an older catalog snapshot", executor)
+
+    def test_publication_envelope_is_complete(self):
+        envelope = package(self.payload)
+        self.assertEqual(set(envelope), {"schemaVersion", "expectedGeneratedAt", "nextGeneratedAt", "statements"})
+        self.assertTrue(envelope["statements"])
+        self.assertTrue(all(statement.rstrip().endswith(";") for statement in envelope["statements"]))
+        production = package(self.payload, expected_generated_at="2026-09-01T00:00:00Z")
+        self.assertTrue(production["expectedGeneratedAt"])
 
     def test_older_snapshot_is_rejected(self):
         with self.assertRaises(ValueError):
