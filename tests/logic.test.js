@@ -8,6 +8,12 @@ test("age matching uses inclusive and open bounds", () => {
   assert.equal(ageMatch({ ageMin: 3, ageMax: null }, 2.5), "no");
   assert.equal(ageMatch({ ageMin: null, ageMax: null }, 2.5), "unknown");
 });
+
+test("source-grounded audience groups keep teen and school-age events out of toddler results", () => {
+  assert.equal(ageMatch({ ageMin: null, ageMax: null, audienceGroup: "teen" }, 2.5), "no");
+  assert.equal(ageMatch({ ageMin: null, ageMax: null, audienceGroup: "school-age" }, 2.5), "no");
+  assert.equal(ageMatch({ ageMin: null, ageMax: null, audienceGroup: "early-childhood" }, 2.5), "match");
+});
 test("Sunday belongs to the current weekend", () => {
   const sunday = new Date("2026-09-06T16:00:00Z");
   assert.deepEqual(weekendKeys(sunday), ["2026-09-05", "2026-09-06"]);
