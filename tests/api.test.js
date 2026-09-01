@@ -36,3 +36,17 @@ test("rejects an event with invalid attribution", async () => {
   const result = await loadCatalog({ apiBase: "https://api.example", fetchImpl });
   assert.equal(result.usingFallback, true);
 });
+
+test("falls back when pages repeat an ID or change snapshot metadata", async () => {
+  const staticData = page([event("static")]);
+  for (const second of [page([event("1")]), page([event("2")], { generatedAt: "2026-09-02T12:00:00Z" })]) {
+    let count = 0;
+    const fetchImpl = async (url) => {
+      if (url === "public/data/events.json") return response(staticData);
+      count += 1;
+      return count === 1 ? response(page([event("1")], { hasMore: true, nextCursor: "next" })) : response(second);
+    };
+    const result = await loadCatalog({ apiBase: "https://api.example", fetchImpl });
+    assert.equal(result.usingFallback, true);
+  }
+});

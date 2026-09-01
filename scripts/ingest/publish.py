@@ -30,6 +30,7 @@ def sql_number(value):
 
 def source_rows(payload, registry):
     by_name = {item["sourceName"]: item for item in payload.get("sources", [])}
+    failures = {item.get("sourceName"): item for item in payload.get("sourceFailures", [])}
     rows = []
     for configured in registry["sources"] if isinstance(registry, dict) else registry:
         if not configured.get("enabled"):
@@ -38,8 +39,12 @@ def source_rows(payload, registry):
         if current is None:
             raise ValueError(f"enabled source missing from complete payload: {configured['sourceName']}")
         status = current.get("status")
+        failure = failures.get(configured["sourceName"])
+        if failure:
+            status = "stale" if failure.get("usingLastKnownGood") else "unavailable"
         if status not in {"fresh", "stale", "unavailable"}:
             raise ValueError(f"invalid source status: {status}")
+        current = dict(current, status=status)
         rows.append((configured, current))
     configured_sources = registry["sources"] if isinstance(registry, dict) else registry
     unknown = set(by_name) - {item["sourceName"] for item in configured_sources}
@@ -56,7 +61,9 @@ def build_publish_sql(payload, registry=None, published_at=None, current_generat
     published_at = published_at or payload["generatedAt"]
     if current_generated_at and datetime.fromisoformat(published_at.replace("Z", "+00:00")) < datetime.fromisoformat(current_generated_at.replace("Z", "+00:00")):
         raise ValueError("refusing to publish an older catalog snapshot")
-    statements = ["BEGIN TRANSACTION;"]
+    statements = ["BEGIN TRANSACTION;",
+        "CREATE TEMP TABLE __catalog_snapshot_guard (value TEXT PRIMARY KEY);",
+        "INSERT INTO __catalog_snapshot_guard SELECT 'older' WHERE EXISTS (SELECT 1 FROM catalog_metadata WHERE id=1 AND generated_at > " + sql_string(published_at) + ") UNION ALL SELECT 'older' WHERE EXISTS (SELECT 1 FROM catalog_metadata WHERE id=1 AND generated_at > " + sql_string(published_at) + ");"]
     for event in sorted(payload["events"], key=lambda item: item["id"]):
         columns = ["id","title","description","start","end","venue","address","town","latitude","longitude","coordinate_precision","age_min","age_max","audience_group","category","cost_status","cost_label","setting","registration_required","registration_url","status","accessibility","source_name","source_url","additional_sources_json","last_checked","created_at","updated_at"]
         values = [sql_string(event.get("id")), sql_string(event.get("title")), sql_string(event.get("description", "")), sql_string(event["start"]), sql_string(event.get("end")), sql_string(event["venue"]), sql_string(event.get("address", "")), sql_string(event["town"]), sql_number(event["latitude"]), sql_number(event["longitude"]), sql_string(event["coordinatePrecision"]), sql_number(event.get("ageMin")), sql_number(event.get("ageMax")), sql_string(event["audienceGroup"]), sql_string(event["category"]), sql_string(event["costStatus"]), sql_string(event.get("costLabel", "")), sql_string(event["setting"]), sql_string(event["registrationRequired"]), sql_string(event.get("registrationUrl")), sql_string(event["status"]), sql_string(event.get("accessibility")), sql_string(event["sourceName"]), sql_string(event["sourceUrl"]), sql_string(json.dumps(event.get("additionalSources", []), separators=(",", ":"))), sql_string(event["lastChecked"]), sql_string(published_at), sql_string(published_at)]
@@ -66,7 +73,7 @@ def build_publish_sql(payload, registry=None, published_at=None, current_generat
     # retain their existing rows as last-known-good data.
     for configured, current in rows:
         if current["status"] == "fresh":
-            ids = sorted(event["id"] for event in payload["events"] if event["sourceName"] == configured["sourceName"])
+            ids = sorted(event["id"] for event in payload["events"] if event["sourceName"] == configured["sourceName"] or any(source.get("sourceName") == configured["sourceName"] for source in event.get("additionalSources", [])))
             if ids:
                 quoted = ",".join(sql_string(item) for item in ids)
                 statements.append(f"DELETE FROM events WHERE source_name={sql_string(configured['sourceName'])} AND id NOT IN ({quoted});")

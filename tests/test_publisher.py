@@ -40,6 +40,14 @@ class PublisherTests(unittest.TestCase):
         sql = build_publish_sql(self.payload, self.registry)
         self.assertIn("DELETE FROM events WHERE source_name='Franklin County Library'", sql)
 
+    def test_top_level_failure_controls_source_lkg_status(self):
+        payload = json.loads(json.dumps(self.payload))
+        payload["sources"][1]["status"] = "fresh"
+        payload["sourceFailures"] = [{"sourceName": "Franklin County Kids & Teens", "usingLastKnownGood": True}]
+        sql = build_publish_sql(payload, self.registry)
+        self.assertIn("'stale'", sql)
+        self.assertIn(",1,", sql)
+
     def test_sql_runs_on_fresh_schema_and_replay_is_idempotent(self):
         connection = sqlite3.connect(":memory:")
         connection.executescript((ROOT / "db" / "schema.sql").read_text(encoding="utf-8"))
@@ -71,6 +79,16 @@ class PublisherTests(unittest.TestCase):
         changed["events"] = [event for event in changed["events"] if event["sourceName"] != "Franklin County Kids & Teens"]
         connection.executescript(build_publish_sql(changed, self.registry))
         self.assertEqual(connection.execute("SELECT count(*) FROM events WHERE source_name='Franklin County Kids & Teens'").fetchone()[0], before)
+
+    def test_older_snapshot_aborts_before_mutation(self):
+        connection = sqlite3.connect(":memory:")
+        connection.executescript((ROOT / "db" / "schema.sql").read_text(encoding="utf-8"))
+        connection.executescript(build_publish_sql(self.payload, self.registry, published_at="2026-09-02T00:00:00Z"))
+        before = connection.execute("SELECT count(*) FROM events").fetchone()[0]
+        with self.assertRaises(sqlite3.IntegrityError):
+            connection.executescript(build_publish_sql(self.payload, self.registry, published_at="2026-09-01T00:00:00Z"))
+        connection.rollback()
+        self.assertEqual(connection.execute("SELECT count(*) FROM events").fetchone()[0], before)
 
     def test_older_snapshot_is_rejected(self):
         with self.assertRaises(ValueError):

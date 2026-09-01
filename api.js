@@ -9,7 +9,8 @@
   const timestamp = (value) => typeof value === "string" && value.length <= 40 && !Number.isNaN(Date.parse(value)) && /(?:Z|[+-]\d\d:\d\d)$/.test(value);
   const eventValid = (event) => event && typeof event === "object" && typeof event.id === "string" && event.id.length <= 120 && typeof event.title === "string" && event.title.length <= 500 && timestamp(event.start) && (event.end == null || timestamp(event.end)) && Number.isFinite(event.latitude) && Number.isFinite(event.longitude) && event.latitude >= -90 && event.latitude <= 90 && event.longitude >= -180 && event.longitude <= 180 && https(event.sourceUrl) && typeof event.sourceName === "string" && event.sourceName.trim().length > 0 && (!event.additionalSources || Array.isArray(event.additionalSources) && event.additionalSources.every((source) => source && typeof source.sourceName === "string" && source.sourceName.trim() && https(source.sourceUrl)));
   const sourceValid = (source) => source && typeof source.sourceName === "string" && source.sourceName.trim() && ["fresh", "stale", "unavailable", "disabled"].includes(source.status) && (!source.lastSuccessfulRefresh || timestamp(source.lastSuccessfulRefresh));
-  const envelopeValid = (data) => data && data.schemaVersion === 1 && timestamp(data.generatedAt) && Array.isArray(data.events) && data.events.every(eventValid) && Array.isArray(data.sources) && data.sources.every(sourceValid) && Array.isArray(data.sourceFailures);
+  const failureValid = (failure) => failure && typeof failure === "object" && typeof failure.sourceName === "string" && failure.sourceName.trim() && typeof failure.usingLastKnownGood === "boolean";
+  const envelopeValid = (data, requirePagination = false) => data && data.schemaVersion === 1 && timestamp(data.generatedAt) && data.origin && typeof data.origin.label === "string" && Number.isFinite(data.origin.latitude) && Number.isFinite(data.origin.longitude) && Array.isArray(data.events) && data.events.every(eventValid) && Array.isArray(data.sources) && data.sources.every(sourceValid) && Array.isArray(data.sourceFailures) && data.sourceFailures.every(failureValid) && (!requirePagination || (typeof data.hasMore === "boolean" && (data.nextCursor === null || typeof data.nextCursor === "string")));
   const fetchWithTimeout = async (fetchImpl, url, options = {}, timeoutMs = TIMEOUT_MS) => {
     const controller = typeof AbortController === "function" ? new AbortController() : null;
     const timer = setTimeout(() => controller && controller.abort(), timeoutMs);
@@ -17,14 +18,18 @@
     finally { clearTimeout(timer); }
   };
   async function fetchApi(fetchImpl, apiBase, timeoutMs = TIMEOUT_MS) {
-    let cursor = null; const events = []; let first = null;
+    let cursor = null; const events = []; const ids = new Set(); let first = null;
     for (let page = 0; page < MAX_PAGES; page += 1) {
       const url = `${apiBase.replace(/\/$/, "")}/api/events${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`;
       const response = await fetchWithTimeout(fetchImpl, url, { cache: "no-store" }, timeoutMs);
       if (!response.ok) throw new Error(`API returned ${response.status}`);
       const data = await response.json();
-      if (!envelopeValid(data) || (data.nextCursor !== null && typeof data.nextCursor !== "string")) throw new Error("API envelope failed validation");
-      if (!first) first = data; events.push(...data.events);
+      if (!envelopeValid(data, true)) throw new Error("API envelope failed validation");
+      if (data.events.some((event) => ids.has(event.id))) throw new Error("API returned duplicate event ID");
+      data.events.forEach((event) => ids.add(event.id));
+      if (!first) first = data;
+      else if (data.generatedAt !== first.generatedAt || JSON.stringify(data.origin) !== JSON.stringify(first.origin) || JSON.stringify(data.sources) !== JSON.stringify(first.sources) || JSON.stringify(data.sourceFailures) !== JSON.stringify(first.sourceFailures)) throw new Error("API page metadata changed during snapshot");
+      events.push(...data.events);
       if (!data.hasMore) return { ...first, events, hasMore: false, nextCursor: null };
       if (!data.nextCursor || data.nextCursor === cursor) throw new Error("API pagination cursor repeated or missing");
       cursor = data.nextCursor;

@@ -144,7 +144,7 @@ function bindControls() {
   $("#retryLoad").addEventListener("click", init);
 }
 
-async function init() {
+async function legacyInit() {
   setDateLabels();
   if (!controlsBound) { bindControls(); controlsBound = true; }
   try {
@@ -153,15 +153,32 @@ async function init() {
     const { data, usingFallback } = catalog;
     events = data.events;
     $("#errorState").hidden = true;
-    $("#freshness").textContent = `${catalog.statusText} · ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
-    $("#freshness").textContent = `${usingFallback ? "Using saved catalog · " : "Updated "}${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
-    // Keep the source of truth from the API boundary visible after the legacy
-    // compatibility assignment above; fallback status is explicit to users.
-    $("#freshness").textContent = `${catalog.statusText} · ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
-    $("#freshness").textContent = `${catalog.statusText} - ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
     const failures = Array.isArray(data.sourceFailures) ? data.sourceFailures : [];
     const sources = Array.isArray(data.sources) ? data.sources : [];
     $("#sourceFreshness").innerHTML = sources.map((source) => `<span>${escapeHtml(source.sourceName)}: ${escapeHtml(source.status)}${source.lastSuccessfulRefresh ? ` · ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(source.lastSuccessfulRefresh)))}` : " · never refreshed"}</span>`).join("");
+    $("#sourceWarning").hidden = failures.length === 0;
+    $("#sourceWarning").textContent = failures.length ? `Some calendars could not refresh and may be stale: ${failures.map((failure) => failure.sourceName).join(", ")}.` : "";
+    render();
+  } catch (error) {
+    $("#resultSummary").textContent = "Events are temporarily unavailable";
+    $("#emptyState").hidden = true;
+    $("#errorState").hidden = false;
+  }
+}
+
+async function legacyInit() {
+  setDateLabels();
+  if (!controlsBound) { bindControls(); controlsBound = true; }
+  try {
+    const apiBase = typeof window.EVENTS_API_BASE === "string" ? window.EVENTS_API_BASE.replace(/\/$/, "") : "";
+    const catalog = await loadCatalog({ apiBase, staticUrl: "public/data/events.json" });
+    const { data } = catalog;
+    events = data.events;
+    $("#errorState").hidden = true;
+    $("#freshness").textContent = `${catalog.statusText} - ${new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(data.generatedAt))}`;
+    const failures = data.sourceFailures;
+    const sources = data.sources;
+    $("#sourceFreshness").innerHTML = sources.map((source) => `<span>${escapeHtml(source.sourceName)}: ${escapeHtml(source.status)}${source.lastSuccessfulRefresh ? ` - ${escapeHtml(new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(new Date(source.lastSuccessfulRefresh)))}` : " - never refreshed"}</span>`).join("");
     $("#sourceWarning").hidden = failures.length === 0;
     $("#sourceWarning").textContent = failures.length ? `Some calendars could not refresh and may be stale: ${failures.map((failure) => failure.sourceName).join(", ")}.` : "";
     render();
