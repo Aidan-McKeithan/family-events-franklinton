@@ -16,6 +16,6 @@ Callers that already know the database snapshot should pass its timestamp as
 `current_generated_at`; older payloads are rejected. Equal timestamps remain
 idempotent, while a later complete batch can advance the catalog snapshot.
 
-The registry in `scripts/ingest/source_registry.json` is the authoritative
+The manifest in `scripts/ingest/source_manifest.json` is the sole authoritative
 allowlist for official iCal feeds. Adding a feed requires its HTTPS source URL,
 retrieval method, and a corresponding collector adapter review.
