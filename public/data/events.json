@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T14:34:33Z",
+  "generatedAt": "2026-09-05T13:28:07Z",
   "origin": {
     "label": "Franklinton, NC 27525",
     "latitude": 36.101,
@@ -16,7 +16,7 @@
   "sources": [
     {
       "sourceName": "Franklin County Library",
-      "lastSuccessfulRefresh": "2026-09-01T14:34:33Z",
+      "lastSuccessfulRefresh": "2026-09-05T13:28:07Z",
       "status": "fresh"
     },
     {
@@ -26,247 +26,16 @@
     },
     {
       "sourceName": "Franklin County Parks & Recreation",
-      "lastSuccessfulRefresh": "2026-09-01T14:34:33Z",
+      "lastSuccessfulRefresh": "2026-09-05T13:28:07Z",
       "status": "fresh"
     },
     {
       "sourceName": "Granville County Library",
-      "lastSuccessfulRefresh": "2026-09-01T14:34:33Z",
+      "lastSuccessfulRefresh": "2026-09-05T13:28:07Z",
       "status": "fresh"
     }
   ],
   "events": [
-    {
-      "id": "south-storytime-creedmoor--nc-2026-09-01T10-30-00-04-00",
-      "title": "South Storytime",
-      "description": "https://www.granvillecounty.org/calendar.aspx?EID=9505",
-      "start": "2026-09-01T10:30:00-04:00",
-      "end": "2026-09-01T11:30:00-04:00",
-      "venue": "South Branch Library - 1550 So. Campus Drive  Creedmoor NC 27522",
-      "town": "Creedmoor, NC",
-      "latitude": 36.1224,
-      "longitude": -78.6861,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "general",
-      "category": "stories",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Granville County Library",
-      "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
-    {
-      "id": "youngsville---afternoon-adventures-youngsville--nc-2026-09-01T16-00-00-04-00",
-      "title": "Youngsville - Afternoon Adventures",
-      "description": "S.T.E.A.M based activities for school age (K-5th grade) children. Explore a different activity each week. https://www.franklincountync.gov/calendar.aspx?EID=2622",
-      "start": "2026-09-01T16:00:00-04:00",
-      "end": "2026-09-01T17:00:00-04:00",
-      "venue": "Youngsville Branch Library - 218 U.S.-1A Highway South  Youngsville NC 27596",
-      "town": "Youngsville, NC",
-      "latitude": 36.0243,
-      "longitude": -78.4744,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "school-age",
-      "category": "community",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Franklin County Library",
-      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
-    {
-      "id": "thornton-storytime-oxford--nc-2026-09-02T10-30-00-04-00",
-      "title": "Thornton Storytime",
-      "description": "https://www.granvillecounty.org/calendar.aspx?EID=9297",
-      "start": "2026-09-02T10:30:00-04:00",
-      "end": "2026-09-02T11:30:00-04:00",
-      "venue": "Richard H. Thornton Library - 210 Main Street  Oxford NC 27565",
-      "town": "Oxford, NC",
-      "latitude": 36.3107,
-      "longitude": -78.5908,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "general",
-      "category": "stories",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Granville County Library",
-      "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
-    {
-      "id": "louisburg-teen-leadership-team-orientation-louisburg--nc-2026-09-02T16-00-00-04-00",
-      "title": "Louisburg Teen Leadership Team Orientation",
-      "description": "Teens interested in helping their community, making new friends, and supporting the library can join the Teen Leadership Team by filling out an application and completing an orientation. Orientations are offered monthly. Registration required. https://www.franklincountync.gov/calendar.aspx?EID=1283",
-      "start": "2026-09-02T16:00:00-04:00",
-      "end": "2026-09-02T17:00:00-04:00",
-      "venue": "Central Library",
-      "town": "Louisburg, NC",
-      "latitude": 36.099,
-      "longitude": -78.3011,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "teen",
-      "category": "community",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "true",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Franklin County Library",
-      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
-    {
-      "id": "bunn---family-storytime-bunn--nc-2026-09-03T10-30-00-04-00",
-      "title": "Bunn - Family Storytime",
-      "description": "Please join us for our Family Storytime for young children (ages 0-5) and their caregivers. We'll have stories, songs, and rhymes that nurture pre-reading skills. https://www.franklincountync.gov/calendar.aspx?EID=2625",
-      "start": "2026-09-03T10:30:00-04:00",
-      "end": "2026-09-03T11:15:00-04:00",
-      "venue": "Bunn Branch Library - 610 Main Street  Bunn NC 27508",
-      "town": "Bunn, NC",
-      "latitude": 35.9613,
-      "longitude": -78.2536,
-      "coordinatePrecision": "town",
-      "ageMin": 0.0,
-      "ageMax": 5.0,
-      "audienceGroup": "general",
-      "category": "stories",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Franklin County Library",
-      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
-    {
-      "id": "youngsville---teen-leadership-team-orientation-youngsville--nc-2026-09-03T16-00-00-04-00",
-      "title": "Youngsville - Teen Leadership Team Orientation",
-      "description": "Orientation for new teen volunteers. https://www.franklincountync.gov/calendar.aspx?EID=1905",
-      "start": "2026-09-03T16:00:00-04:00",
-      "end": "2026-09-03T16:30:00-04:00",
-      "venue": "Youngsville Branch Library - 218 U.S.-1A Highway South  Youngsville NC 27596",
-      "town": "Youngsville, NC",
-      "latitude": 36.0243,
-      "longitude": -78.4744,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "teen",
-      "category": "community",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Franklin County Library",
-      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
-    {
-      "id": "bunn---afternoon-adventures-bunn--nc-2026-09-03T16-00-00-04-00",
-      "title": "Bunn - Afternoon Adventures",
-      "description": "S.T.E.A.M based activities for school age (K-5th grade) children. Explore a different activity each week. https://www.franklincountync.gov/calendar.aspx?EID=2626",
-      "start": "2026-09-03T16:00:00-04:00",
-      "end": "2026-09-03T17:00:00-04:00",
-      "venue": "Bunn Branch Library - 610 Main Street  Bunn NC 27508",
-      "town": "Bunn, NC",
-      "latitude": 35.9613,
-      "longitude": -78.2536,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "school-age",
-      "category": "community",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Franklin County Library",
-      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
-    {
-      "id": "voyager---books--babies----brews-franklinton--nc-2026-09-04T10-00-00-04-00",
-      "title": "Voyager @ Books, Babies, & Brews",
-      "description": "Join us for a Baby Storytime led by Franklin County Library, sensory exploration & coffee with Franklin County Parks and Recreation, and health education & resources provided by FCHD RIMC Program! This event is rain or shine, every Friday from Sept-Nov at 10:00 a.m., featuring different County Parks each month. It is designed for newborns to cruisers with an in-the-lap 15-minute Storytime and sensory toys appealing to younger babies. Storytime will start a few minutes after 10:00 a.m. and the rest of the hour is for free play, socializing, and taking advantage of the Bookmobile, Voyager!    September-Franklinton Park  October-Epsom Park  November-V.E. and Lydia H. Owens Recreational Park at Bull Creek https://www.franklincountync.gov/calendar.aspx?EID=2602",
-      "start": "2026-09-04T10:00:00-04:00",
-      "end": "2026-09-04T11:00:00-04:00",
-      "venue": "Franklinton Park - 202 Park Avenue  Franklinton NC 27525",
-      "town": "Franklinton, NC",
-      "latitude": 36.1018,
-      "longitude": -78.4581,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "early-childhood",
-      "category": "stories",
-      "costStatus": "free",
-      "setting": "outdoor",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Franklin County Library",
-      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z",
-      "additionalSources": [
-        {
-          "sourceName": "Franklin County Parks & Recreation",
-          "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=32"
-        }
-      ]
-    },
-    {
-      "id": "voyager---first-friday-in-franklinton-franklinton--nc-2026-09-04T17-00-00-04-00",
-      "title": "Voyager @ First Friday in Franklinton",
-      "description": "Voyager will be in attendance with a family friendly activity and of course, books! First Fridays in Franklinton is a family friendly event put on by the Town of Franklinton featuring craft vendors, food trucks, and live music. https://www.franklincountync.gov/calendar.aspx?EID=2616",
-      "start": "2026-09-04T17:00:00-04:00",
-      "end": "2026-09-04T21:00:00-04:00",
-      "venue": "Downtown Frankliton  - Main St.  Franklinton NC 27525",
-      "town": "Franklinton, NC",
-      "latitude": 36.1018,
-      "longitude": -78.4581,
-      "coordinatePrecision": "town",
-      "ageMin": null,
-      "ageMax": null,
-      "audienceGroup": "general",
-      "category": "stories",
-      "costStatus": "unknown",
-      "setting": "unknown",
-      "registrationRequired": "unknown",
-      "status": "active",
-      "accessibility": null,
-      "registrationUrl": null,
-      "sourceName": "Franklin County Library",
-      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
-    },
     {
       "id": "youngsville---family-storytime-youngsville--nc-2026-09-08T10-30-00-04-00",
       "title": "Youngsville - Family Storytime",
@@ -290,7 +59,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "south-storytime-creedmoor--nc-2026-09-08T10-30-00-04-00",
@@ -315,7 +84,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---afternoon-adventures-youngsville--nc-2026-09-08T16-00-00-04-00",
@@ -340,7 +109,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-storytime-oxford--nc-2026-09-09T10-30-00-04-00",
@@ -365,7 +134,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "steam-homeschool-creedmoor--nc-2026-09-09T13-00-00-04-00",
@@ -390,7 +159,32 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "louisburg---fiber-arts-group-louisburg--nc-2026-09-10T10-00-00-04-00",
+      "title": "Louisburg - Fiber Arts Group",
+      "description": "Gather your yarn, threads, and current projects for a morning of creativity and community at our Fiber Arts Meetup! Whether you knit, crochet, embroider, or work with any other textiles, bring your own work-in-progress to craft alongside fellow makers of all skill levels. It is a space to share ideas, swap tips, and enjoy dedicated crafting time together. Meets every second Thursday at the library in Louisburg.  https://www.franklincountync.gov/calendar.aspx?EID=2633",
+      "start": "2026-09-10T10:00:00-04:00",
+      "end": "2026-09-10T12:00:00-04:00",
+      "venue": "Central Library",
+      "town": "Louisburg, NC",
+      "latitude": 36.099,
+      "longitude": -78.3011,
+      "coordinatePrecision": "town",
+      "ageMin": null,
+      "ageMax": null,
+      "audienceGroup": "general",
+      "category": "stories",
+      "costStatus": "unknown",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "the-buzz-about-bees---teen-time-louisburg--nc-2026-09-10T15-30-00-04-00",
@@ -415,7 +209,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn---afternoon-adventures-bunn--nc-2026-09-10T16-00-00-04-00",
@@ -440,7 +234,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-steam-oxford--nc-2026-09-10T16-00-00-04-00",
@@ -465,7 +259,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "teen-time-oxford--nc-2026-09-10T18-00-00-04-00",
@@ -490,7 +284,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "voyager---books--babies----brews-franklinton--nc-2026-09-11T10-00-00-04-00",
@@ -515,7 +309,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z",
+      "lastChecked": "2026-09-05T13:28:07Z",
       "additionalSources": [
         {
           "sourceName": "Franklin County Parks & Recreation",
@@ -546,7 +340,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---abc-craft---learn-youngsville--nc-2026-09-12T10-30-00-04-00",
@@ -571,7 +365,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---steam-free-play-saturdays-louisburg--nc-2026-09-12T14-00-00-04-00",
@@ -596,7 +390,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---steam-free-play-saturdays-youngsville--nc-2026-09-12T14-00-00-04-00",
@@ -621,7 +415,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---family-storytime-louisburg--nc-2026-09-14T10-30-00-04-00",
@@ -646,7 +440,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---afternoon-adventures-louisburg--nc-2026-09-14T16-00-00-04-00",
@@ -671,7 +465,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn-teen-leadership-team-orientation-bunn--nc-2026-09-14T16-00-00-04-00",
@@ -696,7 +490,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---family-storytime-youngsville--nc-2026-09-15T10-30-00-04-00",
@@ -721,7 +515,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "south-storytime-creedmoor--nc-2026-09-15T10-30-00-04-00",
@@ -746,7 +540,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---afternoon-adventures-youngsville--nc-2026-09-15T16-00-00-04-00",
@@ -771,7 +565,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---family-storytime-franklinton--nc-2026-09-16T10-30-00-04-00",
@@ -796,7 +590,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-storytime-oxford--nc-2026-09-16T10-30-00-04-00",
@@ -821,7 +615,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---afternoon-adventures-franklinton--nc-2026-09-16T16-00-00-04-00",
@@ -846,7 +640,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "steam-afternoon-creedmoor--nc-2026-09-16T16-00-00-04-00",
@@ -871,7 +665,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn---afternoon-adventures-bunn--nc-2026-09-17T16-00-00-04-00",
@@ -896,7 +690,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-steam-oxford--nc-2026-09-17T16-00-00-04-00",
@@ -921,7 +715,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "craft-time-creedmoor--nc-2026-09-17T16-00-00-04-00",
@@ -946,7 +740,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "arts---crafts-oxford--nc-2026-09-17T17-30-00-04-00",
@@ -971,7 +765,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "teen-time-oxford--nc-2026-09-17T18-00-00-04-00",
@@ -996,7 +790,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "voyager---books--babies----brews-franklinton--nc-2026-09-18T10-00-00-04-00",
@@ -1021,7 +815,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z",
+      "lastChecked": "2026-09-05T13:28:07Z",
       "additionalSources": [
         {
           "sourceName": "Franklin County Parks & Recreation",
@@ -1052,7 +846,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---abc-craft---learn-louisburg--nc-2026-09-19T10-30-00-04-00",
@@ -1077,7 +871,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---abc-craft---learn-youngsville--nc-2026-09-19T10-30-00-04-00",
@@ -1102,7 +896,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---steam-free-play-saturdays-louisburg--nc-2026-09-19T14-00-00-04-00",
@@ -1127,7 +921,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---steam-free-play-saturdays-youngsville--nc-2026-09-19T14-00-00-04-00",
@@ -1152,7 +946,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "voyager---bunn-fun-day-bunn--nc-2026-09-19T14-00-00-04-00",
@@ -1177,7 +971,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---family-storytime-louisburg--nc-2026-09-21T10-30-00-04-00",
@@ -1202,7 +996,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---afternoon-adventures-louisburg--nc-2026-09-21T16-00-00-04-00",
@@ -1227,7 +1021,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---family-storytime-youngsville--nc-2026-09-22T10-30-00-04-00",
@@ -1252,7 +1046,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "south-storytime-creedmoor--nc-2026-09-22T10-30-00-04-00",
@@ -1277,7 +1071,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---afternoon-adventures-youngsville--nc-2026-09-22T16-00-00-04-00",
@@ -1302,7 +1096,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---family-storytime-franklinton--nc-2026-09-23T10-30-00-04-00",
@@ -1327,7 +1121,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-storytime-oxford--nc-2026-09-23T10-30-00-04-00",
@@ -1352,7 +1146,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "steam-homeschool-creedmoor--nc-2026-09-23T13-00-00-04-00",
@@ -1377,7 +1171,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---afternoon-adventures-franklinton--nc-2026-09-23T16-00-00-04-00",
@@ -1402,7 +1196,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn---afternoon-adventures-bunn--nc-2026-09-24T16-00-00-04-00",
@@ -1427,7 +1221,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-steam-oxford--nc-2026-09-24T16-00-00-04-00",
@@ -1452,7 +1246,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "teen-time-oxford--nc-2026-09-24T18-00-00-04-00",
@@ -1477,7 +1271,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "voyager---books--babies----brews-franklinton--nc-2026-09-25T10-00-00-04-00",
@@ -1502,7 +1296,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z",
+      "lastChecked": "2026-09-05T13:28:07Z",
       "additionalSources": [
         {
           "sourceName": "Franklin County Parks & Recreation",
@@ -1533,7 +1327,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---abc-craft---learn-youngsville--nc-2026-09-26T10-30-00-04-00",
@@ -1558,7 +1352,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---steam-free-play-saturdays-louisburg--nc-2026-09-26T14-00-00-04-00",
@@ -1583,7 +1377,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---steam-free-play-saturdays-youngsville--nc-2026-09-26T14-00-00-04-00",
@@ -1608,7 +1402,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---family-storytime-louisburg--nc-2026-09-28T10-30-00-04-00",
@@ -1633,7 +1427,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---afternoon-adventures-louisburg--nc-2026-09-28T16-00-00-04-00",
@@ -1658,7 +1452,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---family-storytime-youngsville--nc-2026-09-29T10-30-00-04-00",
@@ -1683,7 +1477,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "south-storytime-creedmoor--nc-2026-09-29T10-30-00-04-00",
@@ -1708,7 +1502,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---afternoon-adventures-youngsville--nc-2026-09-29T16-00-00-04-00",
@@ -1733,7 +1527,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---family-storytime-franklinton--nc-2026-09-30T10-30-00-04-00",
@@ -1758,7 +1552,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-storytime-oxford--nc-2026-09-30T10-30-00-04-00",
@@ -1783,7 +1577,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---afternoon-adventures-franklinton--nc-2026-09-30T16-00-00-04-00",
@@ -1808,7 +1602,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "steam-afternoon-creedmoor--nc-2026-09-30T16-00-00-04-00",
@@ -1833,7 +1627,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---teen-leadership-team-orientation-youngsville--nc-2026-10-01T16-00-00-04-00",
@@ -1858,7 +1652,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn---afternoon-adventures-bunn--nc-2026-10-01T16-00-00-04-00",
@@ -1883,7 +1677,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton-tlt-orientation-franklinton--nc-2026-10-01T16-00-00-04-00",
@@ -1908,7 +1702,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-steam-oxford--nc-2026-10-01T16-00-00-04-00",
@@ -1933,7 +1727,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "teen-time-oxford--nc-2026-10-01T18-00-00-04-00",
@@ -1958,7 +1752,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---abc-craft---learn-louisburg--nc-2026-10-03T10-30-00-04-00",
@@ -1983,7 +1777,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---abc-craft---learn-youngsville--nc-2026-10-03T10-30-00-04-00",
@@ -2008,7 +1802,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---steam-free-play-saturdays-louisburg--nc-2026-10-03T14-00-00-04-00",
@@ -2033,7 +1827,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---steam-free-play-saturdays-youngsville--nc-2026-10-03T14-00-00-04-00",
@@ -2058,7 +1852,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---family-storytime-louisburg--nc-2026-10-05T10-30-00-04-00",
@@ -2083,7 +1877,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---afternoon-adventures-louisburg--nc-2026-10-05T16-00-00-04-00",
@@ -2108,7 +1902,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn-teen-leadership-team-orientation-bunn--nc-2026-10-05T16-00-00-04-00",
@@ -2133,7 +1927,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---family-storytime-youngsville--nc-2026-10-06T10-30-00-04-00",
@@ -2158,7 +1952,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "south-storytime-creedmoor--nc-2026-10-06T10-30-00-04-00",
@@ -2183,7 +1977,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---afternoon-adventures-youngsville--nc-2026-10-06T16-00-00-04-00",
@@ -2208,7 +2002,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---family-storytime-franklinton--nc-2026-10-07T10-30-00-04-00",
@@ -2233,7 +2027,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-storytime-oxford--nc-2026-10-07T10-30-00-04-00",
@@ -2258,7 +2052,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "steam-homeschool-creedmoor--nc-2026-10-07T13-00-00-04-00",
@@ -2283,7 +2077,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg-teen-leadership-team-orientation-louisburg--nc-2026-10-07T16-00-00-04-00",
@@ -2308,7 +2102,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---afternoon-adventures-franklinton--nc-2026-10-07T16-00-00-04-00",
@@ -2333,7 +2127,32 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "louisburg---fiber-arts-group-louisburg--nc-2026-10-08T10-00-00-04-00",
+      "title": "Louisburg - Fiber Arts Group",
+      "description": "Gather your yarn, threads, and current projects for a morning of creativity and community at our Fiber Arts Meetup! Whether you knit, crochet, embroider, or work with any other textiles, bring your own work-in-progress to craft alongside fellow makers of all skill levels. It is a space to share ideas, swap tips, and enjoy dedicated crafting time together. Meets every second Thursday at the library in Louisburg.  https://www.franklincountync.gov/calendar.aspx?EID=2634",
+      "start": "2026-10-08T10:00:00-04:00",
+      "end": "2026-10-08T12:00:00-04:00",
+      "venue": "Central Library",
+      "town": "Louisburg, NC",
+      "latitude": 36.099,
+      "longitude": -78.3011,
+      "coordinatePrecision": "town",
+      "ageMin": null,
+      "ageMax": null,
+      "audienceGroup": "general",
+      "category": "stories",
+      "costStatus": "unknown",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn---afternoon-adventures-bunn--nc-2026-10-08T16-00-00-04-00",
@@ -2358,7 +2177,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-steam-oxford--nc-2026-10-08T16-00-00-04-00",
@@ -2383,7 +2202,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "teen-time-oxford--nc-2026-10-08T18-00-00-04-00",
@@ -2408,7 +2227,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---abc-craft---learn-louisburg--nc-2026-10-10T10-30-00-04-00",
@@ -2433,7 +2252,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---abc-craft---learn-youngsville--nc-2026-10-10T10-30-00-04-00",
@@ -2458,7 +2277,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---steam-free-play-saturdays-louisburg--nc-2026-10-10T14-00-00-04-00",
@@ -2483,7 +2302,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---steam-free-play-saturdays-youngsville--nc-2026-10-10T14-00-00-04-00",
@@ -2508,7 +2327,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---family-storytime-louisburg--nc-2026-10-12T10-30-00-04-00",
@@ -2533,7 +2352,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "louisburg---afternoon-adventures-louisburg--nc-2026-10-12T16-00-00-04-00",
@@ -2558,7 +2377,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---family-storytime-youngsville--nc-2026-10-13T10-30-00-04-00",
@@ -2583,7 +2402,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "south-storytime-creedmoor--nc-2026-10-13T10-30-00-04-00",
@@ -2608,7 +2427,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "youngsville---afternoon-adventures-youngsville--nc-2026-10-13T16-00-00-04-00",
@@ -2633,7 +2452,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---family-storytime-franklinton--nc-2026-10-14T10-30-00-04-00",
@@ -2658,7 +2477,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "franklinton---afternoon-adventures-franklinton--nc-2026-10-14T16-00-00-04-00",
@@ -2683,7 +2502,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "steam-afternoon-creedmoor--nc-2026-10-14T16-00-00-04-00",
@@ -2708,7 +2527,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "bunn---afternoon-adventures-bunn--nc-2026-10-15T16-00-00-04-00",
@@ -2733,7 +2552,7 @@
       "registrationUrl": null,
       "sourceName": "Franklin County Library",
       "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "thornton-steam-oxford--nc-2026-10-15T16-00-00-04-00",
@@ -2758,7 +2577,7 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
     },
     {
       "id": "teen-time-oxford--nc-2026-10-15T18-00-00-04-00",
@@ -2783,7 +2602,182 @@
       "registrationUrl": null,
       "sourceName": "Granville County Library",
       "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
-      "lastChecked": "2026-09-01T14:34:33Z"
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "berea-storytime-oxford--nc-2026-10-16T11-00-00-04-00",
+      "title": "Berea Storytime",
+      "description": "https://www.granvillecounty.org/calendar.aspx?EID=2790",
+      "start": "2026-10-16T11:00:00-04:00",
+      "end": "2026-10-16T12:00:00-04:00",
+      "venue": "Berea Branch Library - 1211 Highway 158  Oxford NC 27565",
+      "town": "Oxford, NC",
+      "latitude": 36.3107,
+      "longitude": -78.5908,
+      "coordinatePrecision": "town",
+      "ageMin": null,
+      "ageMax": null,
+      "audienceGroup": "general",
+      "category": "stories",
+      "costStatus": "unknown",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Granville County Library",
+      "sourceUrl": "https://www.granvillecounty.org/calendar.aspx?CID=26&view=list",
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "louisburg---abc-craft---learn-louisburg--nc-2026-10-17T10-30-00-04-00",
+      "title": "Louisburg - ABC Craft & Learn",
+      "description": "Build pre-literacy skills and prepare for kindergarten with a story and an alphabet craft. A new letter will be featured every week. This program is designed for children ages 3-5. Thank you to Wake County Public Libraries who developed this program. https://www.franklincountync.gov/calendar.aspx?EID=2111",
+      "start": "2026-10-17T10:30:00-04:00",
+      "end": "2026-10-17T11:15:00-04:00",
+      "venue": "Central Library",
+      "town": "Louisburg, NC",
+      "latitude": 36.099,
+      "longitude": -78.3011,
+      "coordinatePrecision": "town",
+      "ageMin": 3.0,
+      "ageMax": 5.0,
+      "audienceGroup": "general",
+      "category": "stories",
+      "costStatus": "unknown",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "youngsville---abc-craft---learn-youngsville--nc-2026-10-17T10-30-00-04-00",
+      "title": "Youngsville - ABC Craft & Learn",
+      "description": "Build pre-literacy skills and prepare for kindergarten with a story and an alphabet craft. A new letter will be featured every week. This program is designed for children ages 3-5. Thank you to Wake County Public Libraries who developed this program. https://www.franklincountync.gov/calendar.aspx?EID=2216",
+      "start": "2026-10-17T10:30:00-04:00",
+      "end": "2026-10-17T11:15:00-04:00",
+      "venue": "Youngsville Branch Library - 218 U.S.-1A Highway South  Youngsville NC 27596",
+      "town": "Youngsville, NC",
+      "latitude": 36.0243,
+      "longitude": -78.4744,
+      "coordinatePrecision": "town",
+      "ageMin": 3.0,
+      "ageMax": 5.0,
+      "audienceGroup": "general",
+      "category": "stories",
+      "costStatus": "unknown",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "louisburg---steam-free-play-saturdays-louisburg--nc-2026-10-17T14-00-00-04-00",
+      "title": "Louisburg - STEAM Free Play Saturdays",
+      "description": "Join us for a STEAM based drop-in program for school age kids. Participants will explore various creative engineering materials for imagination inspired unstructured learning. https://www.franklincountync.gov/calendar.aspx?EID=2144",
+      "start": "2026-10-17T14:00:00-04:00",
+      "end": "2026-10-17T15:00:00-04:00",
+      "venue": "Central Library",
+      "town": "Louisburg, NC",
+      "latitude": 36.099,
+      "longitude": -78.3011,
+      "coordinatePrecision": "town",
+      "ageMin": null,
+      "ageMax": null,
+      "audienceGroup": "school-age",
+      "category": "arts",
+      "costStatus": "free",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "youngsville---steam-free-play-saturdays-youngsville--nc-2026-10-17T14-00-00-04-00",
+      "title": "Youngsville - STEAM Free Play Saturdays",
+      "description": "Join us for a STEAM based drop-in program for school age kids. Participants will explore various creative engineering materials for imagination inspired unstructured learning. https://www.franklincountync.gov/calendar.aspx?EID=2251",
+      "start": "2026-10-17T14:00:00-04:00",
+      "end": "2026-10-17T15:00:00-04:00",
+      "venue": "Youngsville Branch Library - 218 U.S.-1A Highway South  Youngsville NC 27596",
+      "town": "Youngsville, NC",
+      "latitude": 36.0243,
+      "longitude": -78.4744,
+      "coordinatePrecision": "town",
+      "ageMin": null,
+      "ageMax": null,
+      "audienceGroup": "school-age",
+      "category": "arts",
+      "costStatus": "free",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "louisburg---family-storytime-louisburg--nc-2026-10-19T10-30-00-04-00",
+      "title": "Louisburg - Family Storytime",
+      "description": "Please join us for our Family Storytime for young children (ages 0-5) and their caregivers. We'll have stories, songs, and rhymes that nurture pre-reading skills. https://www.franklincountync.gov/calendar.aspx?EID=2040",
+      "start": "2026-10-19T10:30:00-04:00",
+      "end": "2026-10-19T11:15:00-04:00",
+      "venue": "Central Library",
+      "town": "Louisburg, NC",
+      "latitude": 36.099,
+      "longitude": -78.3011,
+      "coordinatePrecision": "town",
+      "ageMin": 0.0,
+      "ageMax": 5.0,
+      "audienceGroup": "general",
+      "category": "stories",
+      "costStatus": "unknown",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
+    },
+    {
+      "id": "louisburg---afternoon-adventures-louisburg--nc-2026-10-19T16-00-00-04-00",
+      "title": "Louisburg - Afternoon Adventures",
+      "description": "S.T.E.A.M based activities for school age (K-5th grade) children. Explore a different activity each week. https://www.franklincountync.gov/calendar.aspx?EID=2050",
+      "start": "2026-10-19T16:00:00-04:00",
+      "end": "2026-10-19T17:00:00-04:00",
+      "venue": "Central Library",
+      "town": "Louisburg, NC",
+      "latitude": 36.099,
+      "longitude": -78.3011,
+      "coordinatePrecision": "town",
+      "ageMin": null,
+      "ageMax": null,
+      "audienceGroup": "school-age",
+      "category": "community",
+      "costStatus": "unknown",
+      "setting": "unknown",
+      "registrationRequired": "unknown",
+      "status": "active",
+      "accessibility": null,
+      "registrationUrl": null,
+      "sourceName": "Franklin County Library",
+      "sourceUrl": "https://www.franklincountync.gov/calendar.aspx?CID=24",
+      "lastChecked": "2026-09-05T13:28:07Z"
     }
   ]
 }
